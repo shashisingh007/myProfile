@@ -1,7 +1,29 @@
 async function loadComponent(id, file) {
-  const response = await fetch(file)
-  const text = await response.text()
-  document.getElementById(id).innerHTML = text
+  const element = document.getElementById(id)
+  if (!element) return
+
+  try {
+    const response = await fetch(file)
+    const text = await response.text()
+    element.innerHTML = text
+  } catch (err) {
+    console.error("Error loading component:", file, err)
+  }
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id)
+  if (el) el.innerText = value
+}
+
+function setHref(id, value) {
+  const el = document.getElementById(id)
+  if (el) el.href = value
+}
+
+function setSrc(id, value) {
+  const el = document.getElementById(id)
+  if (el) el.src = value
 }
 
 async function loadPortfolio() {
@@ -9,166 +31,152 @@ async function loadPortfolio() {
   await loadComponent("header", "./components/header.html")
   await loadComponent("footer", "./components/footer.html")
 
-  const response = await fetch("./data.json")
-  const data = await response.json()
-
-  // helper function to safely get element
-  const el = (id) => document.getElementById(id)
-
-  // HERO SECTION
-  if (el("name")) el("name").innerText = data.personal.name
-  if (el("title")) el("title").innerText = data.personal.title
-  if (el("tagline")) el("tagline").innerText = data.personal.tagline
-
-  if (el("profileImage")) el("profileImage").src = data.personal.profileImage
-
-  if (el("downloadResume")) el("downloadResume").href = data.personal.resume
-
-  if (el("linkedinBtn")) el("linkedinBtn").href = data.personal.linkedin
-  if (el("githubBtn")) el("githubBtn").href = data.personal.github
-
-
-  // HEADER LINKS
-  if (el("headerName")) el("headerName").innerText = data.personal.name
-
-  if (el("headerLinkedin")) el("headerLinkedin").href = data.personal.linkedin
-  if (el("headerGithub")) el("headerGithub").href = data.personal.github
-  if (el("headerEmail")) el("headerEmail").href = data.personal.email
-
-
-  // SUMMARY
-  if (el("summary")) el("summary").innerText = data.summary
-
-
-  // CORE COMPETENCIES
-  if (data.coreCompetencies && el("competenciesContainer")) {
-
-    let compHTML = ""
-
-    data.coreCompetencies.forEach(c => {
-      compHTML += `<span class="competency">${c}</span>`
-    })
-
-    el("competenciesContainer").innerHTML = compHTML
+  let data
+  try {
+    const response = await fetch("./data.json")
+    data = await response.json()
+  } catch (err) {
+    console.error("Error loading JSON", err)
+    return
   }
 
+  // HERO
+  setText("name", data.personal.name)
+  setText("title", data.personal.title)
+  setText("tagline", data.personal.tagline)
+
+  setSrc("profileImage", data.personal.profileImage)
+
+  setHref("downloadResume", data.personal.resume)
+  setHref("linkedinBtn", data.personal.linkedin)
+  setHref("githubBtn", data.personal.github)
+
+  // HEADER
+  setText("headerName", data.personal.name)
+  setHref("headerLinkedin", data.personal.linkedin)
+  setHref("headerGithub", data.personal.github)
+  setHref("headerEmail", data.personal.email)
+
+  // SUMMARY
+  setText("summary", data.summary)
+
+  // COMPETENCIES
+  const compContainer = document.getElementById("competenciesContainer")
+  if (compContainer && data.coreCompetencies) {
+    compContainer.innerHTML = data.coreCompetencies
+      .map(c => `<span class="competency">${c}</span>`)
+      .join("")
+  }
 
   // SKILLS
-  if (data.skills && el("skillsContainer")) {
+  const skillsContainer = document.getElementById("skillsContainer")
+  if (skillsContainer && data.skills) {
 
-    let skillHTML = ""
+    let html = ""
 
     for (const category in data.skills) {
 
-      skillHTML += `<div class="skill-card">
-      <h3>${category}</h3>`
+      html += `<div class="skill-card"><h3>${category}</h3>`
 
       data.skills[category].forEach(skill => {
-        skillHTML += `<span class="skill">${skill}</span>`
+        html += `<span class="skill">${skill}</span>`
       })
 
-      skillHTML += `</div>`
+      html += `</div>`
     }
 
-    el("skillsContainer").innerHTML = skillHTML
+    skillsContainer.innerHTML = html
   }
-
 
   // EXPERIENCE
-  if (data.experience && el("experienceContainer")) {
+  const expContainer = document.getElementById("experienceContainer")
+  if (expContainer && data.experience) {
 
-    let expHTML = ""
+    expContainer.innerHTML = data.experience.map(job => `
 
-    data.experience.forEach(job => {
+      <div class="experience-card">
 
-      expHTML += `<div class="experience-card">
-      <h3>${job.role} — ${job.company}</h3>
-      <p class="duration">${job.duration} | ${job.location}</p>
-      <ul>`
+        <h3>${job.role} — ${job.company}</h3>
 
-      job.responsibilities.forEach(r => {
-        expHTML += `<li>${r}</li>`
-      })
+        <p class="duration">${job.duration} | ${job.location}</p>
 
-      expHTML += `</ul></div>`
+        <ul>
+          ${job.responsibilities.map(r => `<li>${r}</li>`).join("")}
+        </ul>
 
-    })
+      </div>
 
-    el("experienceContainer").innerHTML = expHTML
+    `).join("")
   }
-
 
   // PROJECTS
-  if (data.projects && el("projectsContainer")) {
+  const projContainer = document.getElementById("projectsContainer")
+  if (projContainer && data.projects) {
 
-    let projHTML = ""
+    projContainer.innerHTML = data.projects.map(project => `
 
-    data.projects.forEach(project => {
+      <div class="project-card">
 
-      projHTML += `<div class="project-card">
-      <h3>${project.name}</h3>
-      <p class="category">${project.category}</p>
-      <p>${project.description}</p>
-      <p class="impact">${project.impact}</p>
-      <div class="tech">`
+        <h3>${project.name}</h3>
 
-      project.technologies.forEach(t => {
-        projHTML += `<span>${t}</span>`
-      })
+        <p class="category">${project.category}</p>
 
-      projHTML += `</div></div>`
+        <p>${project.description}</p>
 
-    })
+        <p class="impact">${project.impact}</p>
 
-    el("projectsContainer").innerHTML = projHTML
+        <div class="tech">
+
+          ${project.technologies.map(t => `<span>${t}</span>`).join("")}
+
+        </div>
+
+      </div>
+
+    `).join("")
   }
-
 
   // CERTIFICATIONS
-  if (data.certifications && el("certificationsContainer")) {
+  const certContainer = document.getElementById("certificationsContainer")
+  if (certContainer && data.certifications) {
 
-    let certHTML = ""
-
-    data.certifications.forEach(cert => {
-      certHTML += `<li>${cert}</li>`
-    })
-
-    el("certificationsContainer").innerHTML = certHTML
+    certContainer.innerHTML = data.certifications
+      .map(cert => `<li>${cert}</li>`)
+      .join("")
   }
 
-
   // EDUCATION
-  if (data.education && el("educationContainer")) {
+  const eduContainer = document.getElementById("educationContainer")
+  if (eduContainer && data.education) {
 
-    el("educationContainer").innerHTML = `
+    eduContainer.innerHTML = `
+
       <h3>${data.education.degree} — ${data.education.field}</h3>
+
       <p>${data.education.institution}</p>
+
       <p>${data.education.location}</p>
+
       <p>${data.education.year}</p>
+
     `
   }
 
-
   // ACHIEVEMENTS
-  if (data.achievements && el("achievementsContainer")) {
+  const achContainer = document.getElementById("achievementsContainer")
+  if (achContainer && data.achievements) {
 
-    let achHTML = ""
-
-    data.achievements.forEach(a => {
-      achHTML += `<li>${a}</li>`
-    })
-
-    el("achievementsContainer").innerHTML = achHTML
+    achContainer.innerHTML = data.achievements
+      .map(a => `<li>${a}</li>`)
+      .join("")
   }
 
-
   // FOOTER
-  if (el("footerName")) el("footerName").innerText = data.personal.name
-
-  if (el("footerLinkedin")) el("footerLinkedin").href = data.personal.linkedin
-  if (el("footerGithub")) el("footerGithub").href = data.personal.github
-  if (el("footerEmail")) el("footerEmail").href = data.personal.email
+  setText("footerName", data.personal.name)
+  setHref("footerLinkedin", data.personal.linkedin)
+  setHref("footerGithub", data.personal.github)
+  setHref("footerEmail", data.personal.email)
 
 }
 
-loadPortfolio()
+document.addEventListener("DOMContentLoaded", loadPortfolio)
