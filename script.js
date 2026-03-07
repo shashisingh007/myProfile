@@ -1,18 +1,18 @@
-/* LOAD HEADER / FOOTER */
+/* LOAD COMPONENTS */
 
 async function loadComponent(id,file){
 
-const element = document.getElementById(id)
+const element=document.getElementById(id)
 
 if(!element) return
 
 try{
 
-const response = await fetch(file)
+const response=await fetch(file)
 
-const html = await response.text()
+const html=await response.text()
 
-element.innerHTML = html
+element.innerHTML=html
 
 }catch(err){
 
@@ -27,165 +27,53 @@ console.log("Component load error",file)
 
 function setText(id,value){
 
-const el = document.getElementById(id)
+const el=document.getElementById(id)
 
-if(el) el.innerText = value
+if(el) el.innerText=value
 
 }
 
 function setHref(id,value){
 
-const el = document.getElementById(id)
+const el=document.getElementById(id)
 
-if(el) el.href = value
+if(el) el.href=value
 
 }
 
 function setSrc(id,value){
 
-const el = document.getElementById(id)
+const el=document.getElementById(id)
 
-if(el) el.src = value
-
-}
-
-
-
-/* HERO TYPE ANIMATION */
-
-function typeEffect(element,text,speed=50){
-
-let i=0
-
-function typing(){
-
-if(i < text.length){
-
-element.innerHTML += text.charAt(i)
-
-i++
-
-setTimeout(typing,speed)
-
-}
-
-}
-
-typing()
+if(el) el.src=value
 
 }
 
 
 
-/* RADAR SKILLS CHART */
+/* STAR GENERATOR */
 
-function createSkillsChart(){
+function generateStars(level){
 
-const ctx = document.getElementById("skillsChart")
+let stars=""
 
-if(!ctx) return
+for(let i=1;i<=5;i++){
 
-new Chart(ctx,{
+if(i<=level){
 
-type:"radar",
+stars+="★"
 
-data:{
+}else{
 
-labels:[
-
-"AWS",
-
-"Kubernetes",
-
-"Terraform",
-
-"CI/CD",
-
-"Docker",
-
-"Python",
-
-"Monitoring"
-
-],
-
-datasets:[{
-
-label:"Skill Level",
-
-data:[9,8,9,9,8,7,8],
-
-backgroundColor:"rgba(56,189,248,0.2)",
-
-borderColor:"#38bdf8",
-
-borderWidth:2,
-
-pointBackgroundColor:"#38bdf8"
-
-}]
-
-},
-
-options:{
-
-plugins:{
-
-legend:{
-
-labels:{color:"#e2e8f0"}
-
-}
-
-},
-
-scales:{
-
-r:{
-
-grid:{color:"#1e293b"},
-
-angleLines:{color:"#1e293b"},
-
-pointLabels:{color:"#e2e8f0"}
+stars+="☆"
 
 }
 
 }
 
-}
-
-})
+return stars
 
 }
-
-
-
-/* SCROLL ANIMATION */
-
-function revealOnScroll(){
-
-const elements = document.querySelectorAll(".section")
-
-elements.forEach(el=>{
-
-const windowHeight = window.innerHeight
-
-const elementTop = el.getBoundingClientRect().top
-
-if(elementTop < windowHeight - 100){
-
-el.style.opacity = 1
-
-el.style.transform = "translateY(0px)"
-
-}
-
-})
-
-}
-
-window.addEventListener("scroll",revealOnScroll)
 
 
 
@@ -201,13 +89,13 @@ let data
 
 try{
 
-const response = await fetch("./data.json")
+const response=await fetch("./data.json")
 
-data = await response.json()
+data=await response.json()
 
 }catch(err){
 
-console.error("JSON load failed")
+console.error("JSON load error")
 
 return
 
@@ -225,17 +113,9 @@ setHref("linkedinBtn",data.personal.linkedin)
 
 setHref("githubBtn",data.personal.github)
 
+setText("name",data.personal.name)
+
 setText("title",data.personal.title)
-
-
-
-const nameEl = document.getElementById("name")
-
-if(nameEl){
-
-typeEffect(nameEl,data.personal.name,80)
-
-}
 
 setText("tagline",data.personal.tagline)
 
@@ -261,23 +141,21 @@ setText("summaryText",data.summary)
 
 /* COMPETENCIES */
 
-const comp = document.getElementById("competenciesContainer")
+const comp=document.getElementById("competenciesContainer")
 
 if(comp && data.coreCompetencies){
 
-comp.innerHTML = data.coreCompetencies
-
+comp.innerHTML=data.coreCompetencies
 .map(c=>`<span class="competency">${c}</span>`)
-
 .join("")
 
 }
 
 
 
-/* SKILLS */
+/* SKILLS WITH STAR RATING */
 
-const skills = document.getElementById("skillsContainer")
+const skills=document.getElementById("skillsContainer")
 
 if(skills && data.skills){
 
@@ -289,7 +167,26 @@ html+=`<div class="skill-card"><h3>${category}</h3>`
 
 data.skills[category].forEach(skill=>{
 
-html+=`<span class="skill">${skill}</span>`
+let level=3
+
+if(skill.toLowerCase().includes("aws")) level=5
+if(skill.toLowerCase().includes("terraform")) level=5
+if(skill.toLowerCase().includes("kubernetes")) level=4
+if(skill.toLowerCase().includes("docker")) level=4
+if(skill.toLowerCase().includes("python")) level=3
+if(skill.toLowerCase().includes("jenkins")) level=4
+
+html+=`
+
+<div class="skill">
+
+<span>${skill}</span>
+
+<span class="skill-stars">${generateStars(level)}</span>
+
+</div>
+
+`
 
 })
 
@@ -297,23 +194,29 @@ html+=`</div>`
 
 }
 
-skills.innerHTML = html
+skills.innerHTML=html
 
 }
 
 
 
-/* EXPERIENCE */
+/* EXPERIENCE TIMELINE */
 
-const exp = document.getElementById("experienceContainer")
+const exp=document.getElementById("experienceContainer")
 
 if(exp && data.experience){
 
-exp.innerHTML = data.experience.map(job=>`
+exp.innerHTML=data.experience.map(job=>`
 
-<div class="experience-card">
+<div class="timeline-item">
 
-<h3>${job.role} — ${job.company}</h3>
+<div class="timeline-dot"></div>
+
+<div class="timeline-content">
+
+<h3>${job.role}</h3>
+
+<h4>${job.company}</h4>
 
 <p class="duration">${job.duration} | ${job.location}</p>
 
@@ -325,6 +228,8 @@ ${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
 
 </div>
 
+</div>
+
 `).join("")
 
 }
@@ -333,11 +238,11 @@ ${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
 
 /* PROJECTS */
 
-const projects = document.getElementById("projectsContainer")
+const projects=document.getElementById("projectsContainer")
 
 if(projects && data.projects){
 
-projects.innerHTML = data.projects.map(p=>`
+projects.innerHTML=data.projects.map(p=>`
 
 <div class="project-card">
 
@@ -365,14 +270,12 @@ ${p.technologies.map(t=>`<span>${t}</span>`).join("")}
 
 /* CERTIFICATIONS */
 
-const cert = document.getElementById("certificationsContainer")
+const cert=document.getElementById("certificationsContainer")
 
 if(cert && data.certifications){
 
-cert.innerHTML = data.certifications
-
+cert.innerHTML=data.certifications
 .map(c=>`<li>${c}</li>`)
-
 .join("")
 
 }
@@ -381,11 +284,11 @@ cert.innerHTML = data.certifications
 
 /* EDUCATION */
 
-const edu = document.getElementById("educationContainer")
+const edu=document.getElementById("educationContainer")
 
 if(edu && data.education){
 
-edu.innerHTML = `
+edu.innerHTML=`
 
 <h3>${data.education.degree} — ${data.education.field}</h3>
 
@@ -403,14 +306,12 @@ edu.innerHTML = `
 
 /* ACHIEVEMENTS */
 
-const ach = document.getElementById("achievementsContainer")
+const ach=document.getElementById("achievementsContainer")
 
 if(ach && data.achievements){
 
-ach.innerHTML = data.achievements
-
+ach.innerHTML=data.achievements
 .map(a=>`<li>${a}</li>`)
-
 .join("")
 
 }
@@ -426,12 +327,6 @@ setHref("footerLinkedin",data.personal.linkedin)
 setHref("footerGithub",data.personal.github)
 
 setHref("footerEmail",data.personal.email)
-
-
-
-/* INIT CHART */
-
-createSkillsChart()
 
 }
 

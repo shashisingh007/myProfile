@@ -21,32 +21,15 @@
 
 <body>
 
-<!-- PARTICLE BACKGROUND -->
+<!-- PARTICLES BACKGROUND -->
 
 <div id="particles-js"></div>
 
 
-<!-- NAVBAR -->
+
+<!-- HEADER -->
 
 <div id="header"></div>
-
-
-
-<!-- TERMINAL INTRO -->
-
-<section class="terminal-section">
-
-<div class="terminal">
-
-<p>> initializing portfolio...</p>
-
-<p>> loading devops modules...</p>
-
-<p>> welcome to shashi kumar singh portfolio</p>
-
-</div>
-
-</section>
 
 
 
@@ -61,6 +44,7 @@
 <img id="profileImage" class="profile-image">
 
 </div>
+
 
 <div class="hero-right">
 
@@ -130,13 +114,33 @@ GitHub
 
 
 
-<!-- RADAR CHART -->
+<!-- DEVOPS PIPELINE VISUALIZATION -->
 
-<section id="skillsRadar" class="section">
+<section id="pipeline" class="section">
 
-<h2 class="section-title">DevOps Skills Overview</h2>
+<h2 class="section-title">DevOps Delivery Pipeline</h2>
 
-<canvas id="skillsChart"></canvas>
+<div class="pipeline-container">
+
+<div class="pipeline-step">GitHub</div>
+
+<div class="pipeline-arrow">→</div>
+
+<div class="pipeline-step">Jenkins</div>
+
+<div class="pipeline-arrow">→</div>
+
+<div class="pipeline-step">Docker</div>
+
+<div class="pipeline-arrow">→</div>
+
+<div class="pipeline-step">Kubernetes</div>
+
+<div class="pipeline-arrow">→</div>
+
+<div class="pipeline-step">Monitoring</div>
+
+</div>
 
 </section>
 
@@ -148,7 +152,7 @@ GitHub
 
 <h2 class="section-title">Professional Experience</h2>
 
-<div id="experienceContainer"></div>
+<div id="experienceContainer" class="timeline"></div>
 
 </section>
 
@@ -180,9 +184,14 @@ GitHub
 
 <img src="assets/architecture/aws.png" class="architecture-image">
 
-<p>Production ready AWS infrastructure using Terraform and Kubernetes.</p>
+<p>
+
+Production-ready AWS infrastructure using Terraform and Kubernetes.
+
+</p>
 
 </div>
+
 
 <div class="architecture-card">
 
@@ -190,7 +199,11 @@ GitHub
 
 <img src="assets/architecture/cicd.png" class="architecture-image">
 
-<p>Automated pipeline with GitHub, Jenkins and Kubernetes deployment.</p>
+<p>
+
+Automated pipeline with GitHub, Jenkins and Kubernetes deployment.
+
+</p>
 
 </div>
 
@@ -260,21 +273,20 @@ GitHub
 
 <script src="script.js"></script>
 
-<script>
 
-/* PARTICLES BACKGROUND */
+<script>
 
 particlesJS("particles-js",{
 
 particles:{
 
-number:{value:80},
+number:{value:50},
 
 color:{value:"#38bdf8"},
 
 shape:{type:"circle"},
 
-opacity:{value:0.3},
+opacity:{value:0.2},
 
 size:{value:3},
 
@@ -296,6 +308,7 @@ speed:2
 })
 
 </script>
+
 
 </body>
 
