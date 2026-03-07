@@ -1,74 +1,182 @@
-fetch("data.json")
-.then(res => res.json())
-.then(data => {
+async function loadComponent(id, file) {
+  const response = await fetch(file)
+  const text = await response.text()
+  document.getElementById(id).innerHTML = text
+}
 
-document.getElementById("name").innerText = data.personal.name
-document.getElementById("title").innerText = data.personal.title
-document.getElementById("location").innerText = data.personal.location
-document.getElementById("summary").innerText = data.summary
+async function loadPortfolio() {
 
-let compHTML=""
+  await loadComponent("header", "components/header.html")
+  await loadComponent("footer", "components/footer.html")
 
-data.core_competencies.forEach(c=>{
-compHTML += `<span class="tag">${c}</span>`
-})
+  const response = await fetch("data.json")
+  const data = await response.json()
 
-document.getElementById("competencies").innerHTML=compHTML
+  // HERO SECTION
+
+  document.getElementById("name").innerText = data.personal.name
+  document.getElementById("title").innerText = data.personal.title
+  document.getElementById("tagline").innerText = data.personal.tagline
+
+  document.getElementById("profileImage").src = data.personal.profileImage
+
+  document.getElementById("downloadResume").href = data.personal.resume
+
+  document.getElementById("linkedinBtn").href = data.personal.linkedin
+  document.getElementById("githubBtn").href = data.personal.github
 
 
-let skillHTML=""
+  // HEADER LINKS
 
-for (const category in data.skills){
+  document.getElementById("headerName").innerText = data.personal.name
 
-skillHTML+=`<h3>${category.replaceAll("_"," ")}</h3>`
+  document.getElementById("headerLinkedin").href = data.personal.linkedin
+  document.getElementById("headerGithub").href = data.personal.github
+  document.getElementById("headerEmail").href = data.personal.email
 
-data.skills[category].forEach(skill=>{
-skillHTML+=`<span class="skill">${skill}</span>`
-})
+
+  // SUMMARY
+
+  document.getElementById("summary").innerText = data.summary
+
+
+  // CORE COMPETENCIES
+
+  let compHTML = ""
+
+  data.coreCompetencies.forEach(c => {
+
+    compHTML += `<span class="competency">${c}</span>`
+
+  })
+
+  document.getElementById("competenciesContainer").innerHTML = compHTML
+
+
+  // SKILLS
+
+  let skillHTML = ""
+
+  for (const category in data.skills) {
+
+    skillHTML += `<div class="skill-card">
+
+      <h3>${category}</h3>`
+
+    data.skills[category].forEach(skill => {
+
+      skillHTML += `<span class="skill">${skill}</span>`
+
+    })
+
+    skillHTML += `</div>`
+  }
+
+  document.getElementById("skillsContainer").innerHTML = skillHTML
+
+
+  // EXPERIENCE
+
+  let expHTML = ""
+
+  data.experience.forEach(job => {
+
+    expHTML += `<div class="experience-card">
+
+      <h3>${job.role} — ${job.company}</h3>
+
+      <p class="duration">${job.duration} | ${job.location}</p>
+
+      <ul>`
+
+    job.responsibilities.forEach(r => {
+
+      expHTML += `<li>${r}</li>`
+
+    })
+
+    expHTML += `</ul></div>`
+
+  })
+
+  document.getElementById("experienceContainer").innerHTML = expHTML
+
+
+  // PROJECTS
+
+  let projHTML = ""
+
+  data.projects.forEach(project => {
+
+    projHTML += `<div class="project-card">
+
+      <h3>${project.name}</h3>
+
+      <p class="category">${project.category}</p>
+
+      <p>${project.description}</p>
+
+      <p class="impact">${project.impact}</p>
+
+      <div class="tech">`
+
+    project.technologies.forEach(t => {
+
+      projHTML += `<span>${t}</span>`
+
+    })
+
+    projHTML += `</div></div>`
+
+  })
+
+  document.getElementById("projectsContainer").innerHTML = projHTML
+
+
+  // CERTIFICATIONS
+
+  let certHTML = ""
+
+  data.certifications.forEach(cert => {
+
+    certHTML += `<li>${cert}</li>`
+
+  })
+
+  document.getElementById("certificationsContainer").innerHTML = certHTML
+
+
+  // EDUCATION
+
+  document.getElementById("educationContainer").innerHTML =
+
+    `<h3>${data.education.degree} — ${data.education.field}</h3>
+     <p>${data.education.institution}</p>
+     <p>${data.education.location}</p>
+     <p>${data.education.year}</p>`
+
+
+  // ACHIEVEMENTS
+
+  let achHTML = ""
+
+  data.achievements.forEach(a => {
+
+    achHTML += `<li>${a}</li>`
+
+  })
+
+  document.getElementById("achievementsContainer").innerHTML = achHTML
+
+
+  // FOOTER
+
+  document.getElementById("footerName").innerText = data.personal.name
+
+  document.getElementById("footerLinkedin").href = data.personal.linkedin
+  document.getElementById("footerGithub").href = data.personal.github
+  document.getElementById("footerEmail").href = data.personal.email
 
 }
 
-document.getElementById("skills").innerHTML=skillHTML
-
-
-let expHTML=""
-
-data.experience.forEach(job=>{
-
-expHTML+=`<div class="card">
-<h3>${job.role} - ${job.company}</h3>
-<p>${job.duration}</p>
-<ul>`
-
-job.responsibilities.forEach(r=>{
-expHTML+=`<li>${r}</li>`
-})
-
-expHTML+=`</ul></div>`
-})
-
-document.getElementById("experience").innerHTML=expHTML
-
-
-let projectHTML=""
-
-data.projects.forEach(p=>{
-projectHTML+=`<div class="card">
-<h3>${p.name}</h3>
-<p>${p.description}</p>
-<p><b>Impact:</b> ${p.impact}</p>
-</div>`
-})
-
-document.getElementById("projects").innerHTML=projectHTML
-
-
-let certHTML=""
-
-data.certifications.forEach(c=>{
-certHTML+=`<li>${c}</li>`
-})
-
-document.getElementById("certifications").innerHTML=certHTML
-
-})
+loadPortfolio()

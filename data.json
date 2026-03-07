@@ -2,18 +2,22 @@
   "personal": {
     "name": "Shashi Kumar Singh",
     "title": "Lead DevOps Engineer | Platform Architect | Site Reliability Engineering Leader",
+    "tagline": "Designing scalable cloud infrastructure, developer platforms, and resilient distributed systems.",
     "location": "Gurugram, India",
-    "phone": "+91 7903286693",
-    "email": "shashi.gotit38@gmail.com",
-    "linkedin": "https://linkedin.com/in/shashi-kumar-singh-52984b127"
+    "email": "mailto:shashi.gotit38@gmail.com",
+    "phone": "+91-7903286693",
+    "linkedin": "https://linkedin.com/in/shashi-kumar-singh-52984b127",
+    "github": "https://github.com/",
+    "profileImage": "assets/profile.jpg",
+    "resume": "assets/resume.pdf"
   },
 
-  "summary": "Senior DevOps and Platform Engineering leader with 7+ years of experience designing scalable cloud infrastructure, Kubernetes platforms, and high-reliability distributed systems. Proven track record of building Internal Developer Platforms (IDP), implementing GitOps pipelines, and architecting hybrid multi-cloud environments across AWS, GCP, and Azure. Experienced in leading DevOps teams, improving developer productivity, and implementing Site Reliability Engineering practices to achieve 99.99% system uptime.",
+  "summary": "Senior DevOps and Platform Engineering leader with over 7 years of experience designing scalable cloud infrastructure, Kubernetes platforms, and automated CI/CD systems. Proven track record of building Internal Developer Platforms, implementing GitOps workflows, and leading DevOps teams delivering highly reliable distributed systems across multi-cloud environments including AWS, GCP and Azure.",
 
-  "core_competencies": [
+  "coreCompetencies": [
     "DevOps Engineering",
     "Platform Engineering",
-    "Site Reliability Engineering (SRE)",
+    "Site Reliability Engineering",
     "Cloud Architecture",
     "Infrastructure as Code",
     "Kubernetes Platform Design",
@@ -21,12 +25,12 @@
     "CI/CD Pipeline Engineering",
     "Hybrid Cloud Architecture",
     "Observability Engineering",
-    "High Availability & Disaster Recovery",
+    "High Availability Systems",
     "Developer Platform Enablement"
   ],
 
   "skills": {
-    "cloud_platforms": [
+    "Cloud Platforms": [
       "Amazon Web Services (AWS)",
       "Google Cloud Platform (GCP)",
       "Microsoft Azure",
@@ -34,7 +38,7 @@
       "Cloud Landing Zones"
     ],
 
-    "containerization_and_orchestration": [
+    "Container & Orchestration": [
       "Kubernetes",
       "Amazon EKS",
       "Google Kubernetes Engine (GKE)",
@@ -42,14 +46,14 @@
       "Kubernetes Operators"
     ],
 
-    "infrastructure_as_code": [
+    "Infrastructure as Code": [
       "Terraform",
       "Ansible",
       "Crossplane",
       "Pulumi"
     ],
 
-    "ci_cd_and_gitops": [
+    "CI/CD & GitOps": [
       "Jenkins",
       "GitHub Actions",
       "GitLab CI",
@@ -57,7 +61,7 @@
       "GitOps Workflows"
     ],
 
-    "observability_and_monitoring": [
+    "Observability": [
       "Prometheus",
       "Grafana",
       "ELK Stack",
@@ -65,7 +69,7 @@
       "Distributed Tracing"
     ],
 
-    "security_and_devsecops": [
+    "Security & DevSecOps": [
       "IAM",
       "Policy as Code",
       "Open Policy Agent (OPA)",
@@ -73,14 +77,14 @@
       "Web Application Firewall"
     ],
 
-    "programming_languages": [
+    "Programming Languages": [
       "Python",
       "Go",
       "Bash",
       "Groovy"
     ],
 
-    "site_reliability_engineering": [
+    "Reliability Engineering": [
       "SLI/SLO Design",
       "Chaos Engineering",
       "Incident Response",
@@ -97,24 +101,24 @@
       "location": "Gurugram, India",
       "responsibilities": [
         "Led a cross-functional team of 8 DevOps and SRE engineers delivering enterprise cloud platform capabilities.",
-        "Architected a centralized Internal Developer Platform (IDP) enabling self-service infrastructure provisioning.",
-        "Reduced developer environment provisioning time by 90% through automation.",
-        "Designed hybrid multi-cloud infrastructure across AWS and GCP supporting high-traffic workloads.",
-        "Implemented self-healing infrastructure automation improving platform reliability to 99.99% uptime.",
-        "Established architectural standards for scalable microservices infrastructure."
+        "Architected Internal Developer Platform enabling self-service infrastructure provisioning.",
+        "Reduced developer environment provisioning time by 90% using automation.",
+        "Designed hybrid multi-cloud infrastructure across AWS and GCP supporting high traffic workloads.",
+        "Implemented self-healing infrastructure automation improving platform uptime to 99.99%.",
+        "Established architecture standards for scalable microservices infrastructure."
       ]
     },
 
     {
       "company": "FIS Solutions",
-      "role": "Senior DevOps Engineer (Design Lead)",
+      "role": "Senior DevOps Engineer",
       "duration": "Sep 2022 – Mar 2023",
       "location": "Gurugram, India",
       "responsibilities": [
-        "Led migration of legacy monolithic financial systems to microservices architecture using AWS EKS.",
-        "Designed secure CI/CD pipelines compliant with PCI-DSS security requirements.",
-        "Implemented automated disaster recovery strategies ensuring business continuity for payment systems.",
-        "Improved deployment reliability using containerized infrastructure and infrastructure as code."
+        "Led migration of legacy financial systems to Kubernetes based microservices architecture.",
+        "Designed secure CI/CD pipelines compliant with PCI-DSS security standards.",
+        "Implemented automated disaster recovery strategies ensuring business continuity.",
+        "Improved deployment reliability through containerization and Infrastructure as Code."
       ]
     },
 
@@ -124,9 +128,9 @@
       "duration": "May 2021 – Sep 2022",
       "location": "Jaipur, India",
       "responsibilities": [
-        "Developed infrastructure automation scripts using Python and Ansible.",
-        "Managed Linux server infrastructure supporting high throughput enterprise systems.",
-        "Automated system configuration and patching workflows improving operational efficiency."
+        "Developed automation workflows using Python and Ansible.",
+        "Managed Linux server infrastructure supporting enterprise applications.",
+        "Automated configuration management improving operational efficiency."
       ]
     }
   ],
@@ -136,47 +140,54 @@
       "name": "Enterprise Internal Developer Platform",
       "category": "Platform Engineering",
       "technologies": ["Kubernetes", "Crossplane", "Backstage"],
-      "impact": "Enabled self-service infrastructure provisioning for development teams reducing onboarding time by 90%.",
-      "description": "Designed and implemented an enterprise developer platform providing standardized infrastructure templates, automated environment provisioning, and centralized developer tooling."
+      "description": "Designed centralized developer platform providing self-service infrastructure provisioning for engineering teams.",
+      "impact": "Reduced infrastructure provisioning time by 90%."
     },
 
     {
       "name": "Hybrid Multi-Cloud Landing Zone",
       "category": "Cloud Architecture",
       "technologies": ["Terraform", "AWS Control Tower", "Global Accelerator"],
-      "impact": "Enabled scalable multi-region infrastructure supporting active-active traffic routing.",
-      "description": "Architected a secure cloud landing zone with governance policies, organizational security controls, and automated infrastructure provisioning."
+      "description": "Architected secure landing zone with governance policies and automated infrastructure provisioning.",
+      "impact": "Enabled scalable multi-region infrastructure across AWS and GCP."
     },
 
     {
-      "name": "Enterprise Observability Framework",
+      "name": "Enterprise Observability Platform",
       "category": "Site Reliability Engineering",
       "technologies": ["Prometheus", "Grafana", "Chaos Mesh"],
-      "impact": "Improved debugging and incident resolution across 50+ microservices.",
-      "description": "Designed a centralized monitoring and observability platform implementing SLIs, SLOs, logging standards, and chaos engineering experiments."
+      "description": "Designed monitoring and observability platform implementing SLIs, SLOs and logging standards.",
+      "impact": "Improved incident debugging across 50+ microservices."
     },
 
     {
       "name": "GitOps CI/CD Transformation",
       "category": "DevOps Automation",
       "technologies": ["ArgoCD", "GitHub Actions", "Helm"],
-      "impact": "Increased release velocity by 300% through automated GitOps workflows.",
-      "description": "Implemented automated GitOps based deployment pipelines enabling push-to-deploy capabilities and standardized CI/CD pipelines."
+      "description": "Implemented automated GitOps pipelines enabling push-to-deploy workflows.",
+      "impact": "Increased deployment velocity by 300%."
     }
   ],
-
-  "education": {
-    "degree": "Bachelor of Technology (B.Tech)",
-    "field": "Computer Science",
-    "institution": "Global Institute of Technology",
-    "location": "Jaipur, Rajasthan",
-    "year": "2020"
-  },
 
   "certifications": [
     "Certified Kubernetes Administrator (CKA)",
     "AWS Certified Solutions Architect – Professional (Targeted)",
     "Google Professional Cloud Architect (Targeted)",
     "HashiCorp Certified: Terraform Associate"
+  ],
+
+  "education": {
+    "degree": "Bachelor of Technology",
+    "field": "Computer Science",
+    "institution": "Global Institute of Technology",
+    "location": "Jaipur, India",
+    "year": "2020"
+  },
+
+  "achievements": [
+    "Leadership Excellence Award at Adidas for successful data center migration.",
+    "Architectural Innovation Award for designing self-service cloud platform.",
+    "Reliability Champion for improving uptime to 99.999%.",
+    "Mentored junior engineers to technical leadership roles."
   ]
 }
