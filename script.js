@@ -1,13 +1,12 @@
 /* ======================================================
 DEVOPS PORTFOLIO ENGINE
 Author: Shashi Kumar Singh
-Architecture: Modular Frontend Controller
+Elite DevOps / SRE Portfolio Controller
 ====================================================== */
 
 const App = {
 
 data:null,
-
 
 /* ======================================================
 INITIALIZE APPLICATION
@@ -25,9 +24,13 @@ this.renderAll()
 
 this.initializeInteractions()
 
+setTimeout(()=>{
+
+this.initializeAnimations()
+
+},200)
+
 },
-
-
 
 /* ======================================================
 CONSOLE BANNER
@@ -37,12 +40,10 @@ consoleBanner(){
 
 console.log(
 "%c DevOps Portfolio Engine Loaded ",
-"background:#0ea5e9;color:#020617;font-weight:bold;padding:6px;border-radius:4px"
+"background:#38bdf8;color:#020617;font-weight:bold;padding:8px;border-radius:4px"
 )
 
 },
-
-
 
 /* ======================================================
 LOAD COMPONENTS
@@ -53,13 +54,12 @@ loadComponents: async function(){
 await Promise.all([
 
 this.loadComponent("header","components/header.html"),
+
 this.loadComponent("footer","components/footer.html")
 
 ])
 
 },
-
-
 
 loadComponent: async function(id,file){
 
@@ -71,9 +71,7 @@ const html=await res.text()
 
 document.getElementById(id).innerHTML=html
 
-}
-
-catch(e){
+}catch(e){
 
 console.error("Component load error:",file)
 
@@ -81,10 +79,8 @@ console.error("Component load error:",file)
 
 },
 
-
-
 /* ======================================================
-LOAD DATA.JSON
+LOAD DATA
 ====================================================== */
 
 loadData: async function(){
@@ -97,20 +93,16 @@ this.data=await res.json()
 
 console.log("Portfolio data loaded")
 
-}
+}catch(e){
 
-catch(e){
-
-console.error("data.json failed to load")
+console.error("Failed loading data.json")
 
 }
 
 },
 
-
-
 /* ======================================================
-RENDER EVERYTHING
+RENDER ALL
 ====================================================== */
 
 renderAll(){
@@ -123,6 +115,8 @@ this.renderHeaderLinks()
 
 this.renderFooterLinks()
 
+this.renderMetrics()
+
 this.renderContact()
 
 this.renderSummary()
@@ -132,6 +126,8 @@ this.renderCompetencies()
 this.renderSkills()
 
 this.renderTools()
+
+this.renderCompanies()
 
 this.renderExperience()
 
@@ -149,10 +145,8 @@ this.renderGitHubActivity()
 
 },
 
-
-
 /* ======================================================
-UTILITY FUNCTIONS
+UTILITIES
 ====================================================== */
 
 setText(id,value){
@@ -185,15 +179,13 @@ let stars=""
 
 for(let i=1;i<=5;i++){
 
-stars+= i<=level ? "★":"☆"
+stars += i<=level ? "★":"☆"
 
 }
 
 return stars
 
 },
-
-
 
 /* ======================================================
 HERO
@@ -204,7 +196,9 @@ renderHero(){
 const p=this.data.personal
 
 this.setText("name",p.name)
+
 this.setText("title",p.title)
+
 this.setText("tagline",p.tagline)
 
 this.setSrc("profileImage",p.profileImage)
@@ -212,15 +206,15 @@ this.setSrc("profileImage",p.profileImage)
 this.setHref("downloadResume",p.resume)
 
 this.setHref("linkedinBtn",p.linkedin)
+
 this.setHref("githubBtn",p.github)
+
 this.setHref("whatsappBtn",p.whatsapp)
 
 },
 
-
-
 /* ======================================================
-HEADER LINKS
+HEADER
 ====================================================== */
 
 renderHeaderLinks(){
@@ -230,16 +224,17 @@ const p=this.data.personal
 this.setText("headerName",p.name)
 
 this.setHref("headerLinkedin",p.linkedin)
+
 this.setHref("headerGithub",p.github)
+
 this.setHref("headerEmail","mailto:"+p.email)
+
 this.setHref("headerWhatsapp",p.whatsapp)
 
 },
 
-
-
 /* ======================================================
-FOOTER LINKS
+FOOTER
 ====================================================== */
 
 renderFooterLinks(){
@@ -249,16 +244,41 @@ const p=this.data.personal
 this.setText("footerName",p.name)
 
 this.setHref("footerLinkedin",p.linkedin)
+
 this.setHref("footerGithub",p.github)
+
 this.setHref("footerEmail","mailto:"+p.email)
+
 this.setHref("footerWhatsapp",p.whatsapp)
 
 },
 
+/* ======================================================
+METRICS
+====================================================== */
 
+renderMetrics(){
+
+const container=document.querySelector(".metrics-container")
+
+if(!container || !this.data.metrics) return
+
+container.innerHTML=this.data.metrics.map(m=>`
+
+<div class="metric">
+
+<h3 class="metric-number" data-value="${m.value.replace('+','')}">0</h3>
+
+<p>${m.label}</p>
+
+</div>
+
+`).join("")
+
+},
 
 /* ======================================================
-CONTACT BAR
+CONTACT
 ====================================================== */
 
 renderContact(){
@@ -266,16 +286,18 @@ renderContact(){
 const p=this.data.personal
 
 this.setText("emailText",p.email)
+
 this.setText("phoneText",p.phone)
+
 this.setText("locationText",p.location)
 
 this.setHref("contactEmailBtn","mailto:"+p.email)
+
 this.setHref("contactLinkedinBtn",p.linkedin)
+
 this.setHref("contactGithubBtn",p.github)
 
 },
-
-
 
 /* ======================================================
 SUMMARY
@@ -286,8 +308,6 @@ renderSummary(){
 this.setText("summaryText",this.data.summary)
 
 },
-
-
 
 /* ======================================================
 COMPETENCIES
@@ -307,8 +327,6 @@ container.innerHTML=this.data.coreCompetencies
 
 },
 
-
-
 /* ======================================================
 SKILLS
 ====================================================== */
@@ -316,6 +334,8 @@ SKILLS
 renderSkills(){
 
 const container=document.getElementById("skillsContainer")
+
+if(!container) return
 
 let html=""
 
@@ -353,15 +373,15 @@ container.innerHTML=html
 
 },
 
-
-
 /* ======================================================
-DEVOPS TOOLS GRID
+TOOLS
 ====================================================== */
 
 renderTools(){
 
 const container=document.getElementById("toolsContainer")
+
+if(!container) return
 
 let tools=[]
 
@@ -385,7 +405,29 @@ container.innerHTML=tools.map(t=>
 
 },
 
+/* ======================================================
+COMPANY JOURNEY
+====================================================== */
 
+renderCompanies(){
+
+const container=document.getElementById("companyJourney")
+
+if(!container || !this.data.companies) return
+
+container.innerHTML=this.data.companies.map(c=>`
+
+<div class="company-node">
+
+<img src="${c.logo}" alt="${c.name}">
+
+<p>${c.name}</p>
+
+</div>
+
+`).join("")
+
+},
 
 /* ======================================================
 EXPERIENCE
@@ -395,6 +437,8 @@ renderExperience(){
 
 const container=document.getElementById("experienceContainer")
 
+if(!container) return
+
 container.innerHTML=this.data.experience.map(job=>`
 
 <div class="experience-card">
@@ -403,10 +447,12 @@ container.innerHTML=this.data.experience.map(job=>`
 
 <img src="${job.logo}" class="company-logo">
 
-<div class="experience-meta">
+<div>
 
 <h3>${job.role}</h3>
+
 <h4>${job.company}</h4>
+
 <p class="duration">${job.duration}</p>
 
 </div>
@@ -425,8 +471,6 @@ ${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
 
 },
 
-
-
 /* ======================================================
 PROJECTS
 ====================================================== */
@@ -434,6 +478,8 @@ PROJECTS
 renderProjects(){
 
 const container=document.getElementById("projectsContainer")
+
+if(!container) return
 
 container.innerHTML=this.data.projects.map(p=>`
 
@@ -455,8 +501,6 @@ ${p.technologies.map(t=>`<span class="tech-badge">${t}</span>`).join("")}
 
 },
 
-
-
 /* ======================================================
 CERTIFICATIONS
 ====================================================== */
@@ -464,6 +508,8 @@ CERTIFICATIONS
 renderCertifications(){
 
 const container=document.getElementById("certificationsContainer")
+
+if(!container) return
 
 container.innerHTML=this.data.certifications
 
@@ -473,8 +519,6 @@ container.innerHTML=this.data.certifications
 
 },
 
-
-
 /* ======================================================
 EDUCATION
 ====================================================== */
@@ -483,15 +527,21 @@ renderEducation(){
 
 const e=this.data.education
 
-document.getElementById("educationContainer").innerHTML=
+const container=document.getElementById("educationContainer")
 
-`<h3>${e.degree}</h3>
+if(!container) return
+
+container.innerHTML=`
+
+<h3>${e.degree}</h3>
+
 <p>${e.institution}</p>
-<p>${e.year}</p>`
+
+<p>${e.year}</p>
+
+`
 
 },
-
-
 
 /* ======================================================
 ACHIEVEMENTS
@@ -501,6 +551,8 @@ renderAchievements(){
 
 const container=document.getElementById("achievementsContainer")
 
+if(!container) return
+
 container.innerHTML=this.data.achievements
 
 .map(a=>`<li>${a}</li>`)
@@ -508,8 +560,6 @@ container.innerHTML=this.data.achievements
 .join("")
 
 },
-
-
 
 /* ======================================================
 TRAINING
@@ -519,14 +569,16 @@ renderTraining(){
 
 const container=document.getElementById("trainingContainer")
 
-if(!this.data.training) return
+if(!container || !this.data.training) return
 
 container.innerHTML=this.data.training.map(t=>`
 
 <div class="training-card">
 
 <h3>${t.role}</h3>
+
 <h4>${t.organization}</h4>
+
 <p>${t.description}</p>
 
 </div>
@@ -535,10 +587,8 @@ container.innerHTML=this.data.training.map(t=>`
 
 },
 
-
-
 /* ======================================================
-GITHUB ACTIVITY GRAPH
+GITHUB GRAPH
 ====================================================== */
 
 renderGitHubActivity(){
@@ -547,31 +597,17 @@ const graph=document.querySelector(".github-graph img")
 
 if(!graph) return
 
-graph.src=`https://ghchart.rshah.org/38bdf8/${this.data.personal.githubUser}`
+const username=this.data.personal.github.split("/").pop()
+
+graph.src=`https://ghchart.rshah.org/38bdf8/${username}`
 
 },
-
-
 
 /* ======================================================
 INTERACTIONS
 ====================================================== */
 
 initializeInteractions(){
-
-this.enableSmoothScroll()
-
-this.highlightNavigation()
-
-},
-
-
-
-/* ======================================================
-SMOOTH SCROLL
-====================================================== */
-
-enableSmoothScroll(){
 
 document.querySelectorAll("a[href^='#']").forEach(link=>{
 
@@ -581,11 +617,7 @@ e.preventDefault()
 
 document.querySelector(this.getAttribute("href"))
 
-.scrollIntoView({
-
-behavior:"smooth"
-
-})
+.scrollIntoView({behavior:"smooth"})
 
 })
 
@@ -593,49 +625,43 @@ behavior:"smooth"
 
 },
 
-
-
 /* ======================================================
-ACTIVE NAVIGATION
+METRICS ANIMATION
 ====================================================== */
 
-highlightNavigation(){
+initializeAnimations(){
 
-const sections=document.querySelectorAll("section")
+const counters=document.querySelectorAll(".metric-number")
 
-const navLinks=document.querySelectorAll(".nav-links a")
+counters.forEach(counter=>{
 
-window.addEventListener("scroll",()=>{
+const target=+counter.dataset.value
 
-let current=""
+let count=0
 
-sections.forEach(sec=>{
+const speed=25
 
-const top=sec.offsetTop-120
+const update=()=>{
 
-if(scrollY>=top) current=sec.getAttribute("id")
+count++
 
-})
+counter.innerText=count
 
-navLinks.forEach(a=>{
+if(count<target){
 
-a.classList.remove("active")
-
-if(a.getAttribute("href")==="#"+current){
-
-a.classList.add("active")
+setTimeout(update,speed)
 
 }
 
-})
+}
+
+update()
 
 })
 
 }
 
 }
-
-
 
 /* ======================================================
 START APP
