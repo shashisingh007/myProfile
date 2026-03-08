@@ -25,9 +25,9 @@ this.renderAll()
 this.initializeInteractions()
 
 setTimeout(()=>{
-
 this.initializeAnimations()
-
+this.initializePipelineAnimation()
+this.initializeJourneyAnimation()
 },200)
 
 },
@@ -39,7 +39,7 @@ CONSOLE BANNER
 consoleBanner(){
 
 console.log(
-"%c DevOps Portfolio Engine Loaded ",
+"%c DevOps Portfolio Platform Loaded ",
 "background:#38bdf8;color:#020617;font-weight:bold;padding:8px;border-radius:4px"
 )
 
@@ -54,7 +54,6 @@ loadComponents: async function(){
 await Promise.all([
 
 this.loadComponent("header","components/header.html"),
-
 this.loadComponent("footer","components/footer.html")
 
 ])
@@ -69,7 +68,9 @@ const res=await fetch(file)
 
 const html=await res.text()
 
-document.getElementById(id).innerHTML=html
+const el=document.getElementById(id)
+
+if(el) el.innerHTML=html
 
 }catch(e){
 
@@ -102,7 +103,7 @@ console.error("Failed loading data.json")
 },
 
 /* ======================================================
-RENDER ALL
+RENDER ALL SECTIONS
 ====================================================== */
 
 renderAll(){
@@ -146,7 +147,7 @@ this.renderGitHubActivity()
 },
 
 /* ======================================================
-UTILITIES
+UTILITY HELPERS
 ====================================================== */
 
 setText(id,value){
@@ -196,9 +197,7 @@ renderHero(){
 const p=this.data.personal
 
 this.setText("name",p.name)
-
 this.setText("title",p.title)
-
 this.setText("tagline",p.tagline)
 
 this.setSrc("profileImage",p.profileImage)
@@ -206,15 +205,13 @@ this.setSrc("profileImage",p.profileImage)
 this.setHref("downloadResume",p.resume)
 
 this.setHref("linkedinBtn",p.linkedin)
-
 this.setHref("githubBtn",p.github)
-
 this.setHref("whatsappBtn",p.whatsapp)
 
 },
 
 /* ======================================================
-HEADER
+HEADER LINKS
 ====================================================== */
 
 renderHeaderLinks(){
@@ -224,17 +221,14 @@ const p=this.data.personal
 this.setText("headerName",p.name)
 
 this.setHref("headerLinkedin",p.linkedin)
-
 this.setHref("headerGithub",p.github)
-
 this.setHref("headerEmail","mailto:"+p.email)
-
 this.setHref("headerWhatsapp",p.whatsapp)
 
 },
 
 /* ======================================================
-FOOTER
+FOOTER LINKS
 ====================================================== */
 
 renderFooterLinks(){
@@ -244,12 +238,17 @@ const p=this.data.personal
 this.setText("footerName",p.name)
 
 this.setHref("footerLinkedin",p.linkedin)
-
 this.setHref("footerGithub",p.github)
-
 this.setHref("footerEmail","mailto:"+p.email)
-
 this.setHref("footerWhatsapp",p.whatsapp)
+
+this.setText("footerNameBottom",p.name)
+
+this.setHref("footerPhone","tel:"+p.phone)
+
+this.setText("footerPhone",p.phone)
+
+this.setText("footerEmailText",p.email)
 
 },
 
@@ -278,7 +277,7 @@ container.innerHTML=this.data.metrics.map(m=>`
 },
 
 /* ======================================================
-CONTACT
+CONTACT BAR
 ====================================================== */
 
 renderContact(){
@@ -286,15 +285,11 @@ renderContact(){
 const p=this.data.personal
 
 this.setText("emailText",p.email)
-
 this.setText("phoneText",p.phone)
-
 this.setText("locationText",p.location)
 
 this.setHref("contactEmailBtn","mailto:"+p.email)
-
 this.setHref("contactLinkedinBtn",p.linkedin)
-
 this.setHref("contactGithubBtn",p.github)
 
 },
@@ -320,9 +315,7 @@ const container=document.getElementById("competenciesContainer")
 if(!container) return
 
 container.innerHTML=this.data.coreCompetencies
-
 .map(c=>`<span class="competency">${c}</span>`)
-
 .join("")
 
 },
@@ -341,13 +334,7 @@ let html=""
 
 for(const category in this.data.skills){
 
-html+=`
-
-<div class="skill-card">
-
-<h3>${category}</h3>
-
-`
+html+=`<div class="skill-card"><h3>${category}</h3>`
 
 this.data.skills[category].forEach(skill=>{
 
@@ -374,7 +361,7 @@ container.innerHTML=html
 },
 
 /* ======================================================
-TOOLS
+TOOLS ECOSYSTEM (WITH ICON SUPPORT)
 ====================================================== */
 
 renderTools(){
@@ -393,15 +380,23 @@ this.data.skills[cat].forEach(s=>tools.push(s.name))
 
 tools=[...new Set(tools)]
 
-container.innerHTML=tools.map(t=>
+container.innerHTML=tools.map(t=>{
 
-`<div class="tool-card">
+const icon=t.toLowerCase().replace(/\s/g,"-")
+
+return `
+
+<div class="tool-card">
+
+<img src="assets/tools/${icon}.png" alt="${t}" class="tool-icon">
 
 <span>${t}</span>
 
-</div>`
+</div>
 
-).join("")
+`
+
+}).join("")
 
 },
 
@@ -415,15 +410,17 @@ const container=document.getElementById("companyJourney")
 
 if(!container || !this.data.companies) return
 
-container.innerHTML=this.data.companies.map(c=>`
+container.innerHTML=this.data.companies.map((c,i)=>`
 
 <div class="company-node">
 
-<img src="${c.logo}" alt="${c.name}">
+<img src="${c.logo}" alt="${c.name}" class="company-icon">
 
 <p>${c.name}</p>
 
 </div>
+
+${i < this.data.companies.length-1 ? `<div class="company-route-line"></div>` : ""}
 
 `).join("")
 
@@ -512,9 +509,7 @@ const container=document.getElementById("certificationsContainer")
 if(!container) return
 
 container.innerHTML=this.data.certifications
-
 .map(c=>`<li>${c}</li>`)
-
 .join("")
 
 },
@@ -534,9 +529,7 @@ if(!container) return
 container.innerHTML=`
 
 <h3>${e.degree}</h3>
-
 <p>${e.institution}</p>
-
 <p>${e.year}</p>
 
 `
@@ -554,9 +547,7 @@ const container=document.getElementById("achievementsContainer")
 if(!container) return
 
 container.innerHTML=this.data.achievements
-
 .map(a=>`<li>${a}</li>`)
-
 .join("")
 
 },
@@ -576,9 +567,7 @@ container.innerHTML=this.data.training.map(t=>`
 <div class="training-card">
 
 <h3>${t.role}</h3>
-
 <h4>${t.organization}</h4>
-
 <p>${t.description}</p>
 
 </div>
@@ -588,7 +577,7 @@ container.innerHTML=this.data.training.map(t=>`
 },
 
 /* ======================================================
-GITHUB GRAPH
+GITHUB ACTIVITY
 ====================================================== */
 
 renderGitHubActivity(){
@@ -615,9 +604,13 @@ link.addEventListener("click",function(e){
 
 e.preventDefault()
 
-document.querySelector(this.getAttribute("href"))
+const target=document.querySelector(this.getAttribute("href"))
 
-.scrollIntoView({behavior:"smooth"})
+if(target){
+
+target.scrollIntoView({behavior:"smooth"})
+
+}
 
 })
 
@@ -626,7 +619,7 @@ document.querySelector(this.getAttribute("href"))
 },
 
 /* ======================================================
-METRICS ANIMATION
+METRIC COUNTER ANIMATION
 ====================================================== */
 
 initializeAnimations(){
@@ -639,7 +632,7 @@ const target=+counter.dataset.value
 
 let count=0
 
-const speed=25
+const speed=20
 
 const update=()=>{
 
@@ -659,12 +652,52 @@ update()
 
 })
 
+},
+
+/* ======================================================
+PIPELINE ANIMATION
+====================================================== */
+
+initializePipelineAnimation(){
+
+const nodes=document.querySelectorAll(".pipeline-node")
+
+nodes.forEach((node,i)=>{
+
+setTimeout(()=>{
+
+node.classList.add("pipeline-active")
+
+},i*400)
+
+})
+
+},
+
+/* ======================================================
+CAREER JOURNEY ANIMATION
+====================================================== */
+
+initializeJourneyAnimation(){
+
+const nodes=document.querySelectorAll(".company-node")
+
+nodes.forEach((node,i)=>{
+
+setTimeout(()=>{
+
+node.classList.add("journey-visible")
+
+},i*500)
+
+})
+
 }
 
 }
 
 /* ======================================================
-START APP
+START APPLICATION
 ====================================================== */
 
 document.addEventListener("DOMContentLoaded",()=>{

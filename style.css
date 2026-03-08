@@ -12,13 +12,9 @@ scroll-behavior:smooth;
 body{
 
 font-family:"Poppins",sans-serif;
-
 background:#020617;
-
 color:#e2e8f0;
-
 line-height:1.6;
-
 overflow-x:hidden;
 
 }
@@ -30,15 +26,10 @@ PARTICLE BACKGROUND
 #particles-js{
 
 position:fixed;
-
 top:0;
-
 left:0;
-
 width:100%;
-
 height:100%;
-
 z-index:-1;
 
 }
@@ -49,11 +40,9 @@ SECTION CONTAINER
 
 .section{
 
-max-width:1200px;
-
+max-width:1150px;
 margin:auto;
-
-padding:100px 20px;
+padding:90px 20px;
 
 }
 
@@ -64,23 +53,18 @@ HEADER
 .header{
 
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 padding:18px 60px;
 
-background:rgba(2,6,23,0.9);
-
+background:rgba(2,6,23,0.85);
 backdrop-filter:blur(12px);
 
 border-bottom:1px solid #1e293b;
 
 position:sticky;
-
 top:0;
-
 z-index:100;
 
 }
@@ -88,17 +72,18 @@ z-index:100;
 .logo-text{
 
 font-size:22px;
-
 font-weight:600;
-
 color:#38bdf8;
 
 }
 
+/* ======================================================
+NAVIGATION
+====================================================== */
+
 .nav-links{
 
 display:flex;
-
 gap:26px;
 
 }
@@ -106,13 +91,10 @@ gap:26px;
 .nav-links a{
 
 text-decoration:none;
-
 color:#94a3b8;
-
 font-size:14px;
 
 transition:0.3s;
-
 position:relative;
 
 }
@@ -126,19 +108,15 @@ color:#38bdf8;
 .nav-links a::after{
 
 content:"";
-
 position:absolute;
 
 left:0;
-
 bottom:-4px;
 
 width:0%;
-
 height:2px;
 
 background:#38bdf8;
-
 transition:0.3s;
 
 }
@@ -156,7 +134,6 @@ HEADER SOCIAL
 .header-social{
 
 display:flex;
-
 gap:12px;
 
 }
@@ -164,13 +141,10 @@ gap:12px;
 .header-social a{
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
 width:34px;
-
 height:34px;
 
 background:#0f172a;
@@ -184,7 +158,6 @@ transition:0.3s;
 .header-social a:hover{
 
 background:#38bdf8;
-
 transform:translateY(-2px);
 
 }
@@ -201,12 +174,10 @@ padding:130px 20px 80px;
 
 .hero-container{
 
-max-width:1200px;
-
+max-width:1150px;
 margin:auto;
 
 display:flex;
-
 align-items:center;
 
 gap:70px;
@@ -216,9 +187,7 @@ gap:70px;
 .hero-left{
 
 flex:1;
-
 display:flex;
-
 justify-content:center;
 
 }
@@ -226,7 +195,6 @@ justify-content:center;
 .profile-image{
 
 width:210px;
-
 height:210px;
 
 border-radius:50%;
@@ -237,13 +205,13 @@ box-shadow:0 0 45px rgba(56,189,248,0.8);
 
 object-fit:cover;
 
-transition:0.3s;
+transition:0.4s;
 
 }
 
 .profile-image:hover{
 
-transform:scale(1.06);
+transform:scale(1.07);
 
 }
 
@@ -255,8 +223,7 @@ flex:2;
 
 .hero-right h1{
 
-font-size:48px;
-
+font-size:46px;
 margin-bottom:8px;
 
 }
@@ -264,7 +231,6 @@ margin-bottom:8px;
 .hero-right h2{
 
 color:#38bdf8;
-
 margin-bottom:14px;
 
 }
@@ -272,8 +238,7 @@ margin-bottom:14px;
 .hero-right p{
 
 color:#94a3b8;
-
-max-width:540px;
+max-width:520px;
 
 }
 
@@ -286,7 +251,6 @@ BUTTONS
 margin-top:28px;
 
 display:flex;
-
 gap:14px;
 
 flex-wrap:wrap;
@@ -316,7 +280,6 @@ box-shadow:0 0 20px rgba(56,189,248,0.6);
 .btn-primary:hover{
 
 transform:translateY(-3px);
-
 box-shadow:0 0 40px rgba(56,189,248,1);
 
 }
@@ -342,13 +305,12 @@ transition:0.3s;
 .btn-secondary:hover{
 
 background:#38bdf8;
-
 color:#020617;
 
 }
 
 /* ======================================================
-METRICS
+METRICS DASHBOARD
 ====================================================== */
 
 .metrics-section{
@@ -356,7 +318,6 @@ METRICS
 padding:70px 0;
 
 border-top:1px solid #1e293b;
-
 border-bottom:1px solid #1e293b;
 
 }
@@ -364,11 +325,9 @@ border-bottom:1px solid #1e293b;
 .metrics-container{
 
 display:flex;
-
 justify-content:center;
 
 gap:70px;
-
 flex-wrap:wrap;
 
 }
@@ -382,7 +341,6 @@ text-align:center;
 .metric h3{
 
 font-size:36px;
-
 color:#38bdf8;
 
 }
@@ -390,7 +348,6 @@ color:#38bdf8;
 .metric p{
 
 color:#94a3b8;
-
 font-size:14px;
 
 }
@@ -402,7 +359,6 @@ CONTACT BAR
 .contact-bar{
 
 border-top:1px solid #1e293b;
-
 border-bottom:1px solid #1e293b;
 
 padding:18px;
@@ -412,11 +368,9 @@ padding:18px;
 .contact-container{
 
 display:flex;
-
 justify-content:center;
 
-gap:70px;
-
+gap:60px;
 flex-wrap:wrap;
 
 }
@@ -424,7 +378,6 @@ flex-wrap:wrap;
 .contact-item{
 
 font-size:14px;
-
 color:#94a3b8;
 
 }
@@ -435,11 +388,10 @@ SECTION TITLES
 
 .section-title{
 
-font-size:34px;
-
+font-size:32px;
 color:#38bdf8;
 
-margin-bottom:50px;
+margin-bottom:45px;
 
 text-align:center;
 
@@ -452,7 +404,6 @@ COMPETENCIES
 .competencies{
 
 display:flex;
-
 flex-wrap:wrap;
 
 gap:12px;
@@ -464,7 +415,6 @@ justify-content:center;
 .competency{
 
 background:#0f172a;
-
 border:1px solid #1e293b;
 
 padding:8px 14px;
@@ -538,7 +488,7 @@ color:#facc15;
 }
 
 /* ======================================================
-TOOLS GRID
+TOOLS GRID (WITH ICON SUPPORT)
 ====================================================== */
 
 .tools-grid{
@@ -563,9 +513,16 @@ padding:18px;
 
 text-align:center;
 
-font-size:14px;
-
 transition:0.3s;
+
+}
+
+.tool-card img{
+
+width:32px;
+height:32px;
+
+margin-bottom:8px;
 
 }
 
@@ -580,6 +537,113 @@ box-shadow:0 0 18px rgba(56,189,248,0.6);
 }
 
 /* ======================================================
+CI/CD PIPELINE
+====================================================== */
+
+.pipeline-flow{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+margin-top:40px;
+
+}
+
+.pipeline-node{
+
+padding:10px 20px;
+
+border:1px solid #38bdf8;
+
+border-radius:6px;
+
+background:#0f172a;
+
+box-shadow:0 0 8px rgba(56,189,248,0.3);
+
+transition:0.3s;
+
+}
+
+.pipeline-node.pipeline-active{
+
+box-shadow:0 0 20px rgba(56,189,248,1);
+
+}
+
+.pipeline-line{
+
+width:70px;
+height:2px;
+
+background:#38bdf8;
+
+}
+
+/* ======================================================
+ENGINEERING JOURNEY
+====================================================== */
+
+.company-route{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+margin-top:40px;
+
+}
+
+.company-node{
+
+text-align:center;
+
+opacity:0;
+transform:translateY(20px);
+
+transition:0.5s;
+
+}
+
+.company-node.journey-visible{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+.company-icon{
+
+width:38px;
+height:38px;
+
+background:white;
+
+padding:5px;
+
+border-radius:6px;
+
+}
+
+.company-route-line{
+
+width:70px;
+height:2px;
+
+background:#38bdf8;
+
+}
+
+/* ======================================================
 EXPERIENCE
 ====================================================== */
 
@@ -587,13 +651,13 @@ EXPERIENCE
 
 background:#0f172a;
 
-padding:24px;
+padding:22px;
 
 border-radius:10px;
 
 border:1px solid #1e293b;
 
-margin-bottom:24px;
+margin-bottom:22px;
 
 transition:0.3s;
 
@@ -603,21 +667,20 @@ transition:0.3s;
 
 border-color:#38bdf8;
 
-transform:translateY(-5px);
+transform:translateY(-4px);
 
 }
 
 .company-logo{
 
-width:45px;
-
-height:45px;
+width:36px;
+height:36px;
 
 background:white;
 
 border-radius:6px;
 
-padding:5px;
+padding:4px;
 
 object-fit:contain;
 
@@ -676,54 +739,6 @@ margin-right:6px;
 }
 
 /* ======================================================
-ARCHITECTURE
-====================================================== */
-
-.architecture-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:30px;
-
-}
-
-.architecture-card{
-
-background:#0f172a;
-
-padding:26px;
-
-border-radius:10px;
-
-border:1px solid #1e293b;
-
-text-align:center;
-
-transition:0.3s;
-
-}
-
-.architecture-card:hover{
-
-border-color:#38bdf8;
-
-transform:translateY(-5px);
-
-}
-
-.architecture-card img{
-
-width:100%;
-
-margin-top:15px;
-
-border-radius:6px;
-
-}
-
-/* ======================================================
 FOOTER
 ====================================================== */
 
@@ -733,15 +748,15 @@ background:#020617;
 
 border-top:1px solid #1e293b;
 
-margin-top:100px;
+margin-top:90px;
 
-padding:70px 20px;
+padding:60px 20px;
 
 }
 
 .footer-container{
 
-max-width:1200px;
+max-width:1150px;
 
 margin:auto;
 
@@ -749,39 +764,81 @@ display:grid;
 
 grid-template-columns:2fr 1fr 1fr;
 
-gap:50px;
+gap:40px;
 
 }
 
-.footer-links a{
+.footer-contact p{
 
-display:block;
+margin-top:8px;
 
 color:#94a3b8;
 
+}
+
+.footer-icons{
+
+display:flex;
+gap:14px;
+
 margin-top:10px;
-
-text-decoration:none;
-
-font-size:14px;
 
 }
 
-.footer-links a:hover{
+.footer-icons img{
 
-color:#38bdf8;
+width:20px;
+height:20px;
+
+filter:invert(1);
 
 }
 
 .footer-bottom{
 
-margin-top:50px;
+margin-top:40px;
 
 text-align:center;
 
 color:#64748b;
 
 font-size:13px;
+
+}
+
+/* ======================================================
+CONTACT SECTION
+====================================================== */
+
+.contact-wrapper{
+
+max-width:700px;
+margin:auto;
+
+text-align:center;
+
+}
+
+.contact-text{
+
+color:#94a3b8;
+
+max-width:600px;
+
+margin:auto;
+
+}
+
+.contact-buttons{
+
+margin-top:30px;
+
+display:flex;
+justify-content:center;
+
+gap:14px;
+
+flex-wrap:wrap;
 
 }
 
@@ -794,7 +851,6 @@ RESPONSIVE
 .hero-container{
 
 flex-direction:column;
-
 text-align:center;
 
 }
@@ -802,7 +858,6 @@ text-align:center;
 .header{
 
 flex-direction:column;
-
 gap:14px;
 
 }
@@ -810,7 +865,6 @@ gap:14px;
 .nav-links{
 
 flex-wrap:wrap;
-
 justify-content:center;
 
 }
@@ -818,9 +872,66 @@ justify-content:center;
 .footer-container{
 
 grid-template-columns:1fr;
-
 text-align:center;
 
 }
 
+}
+
+
+.header-left{
+display:flex;
+flex-direction:column;
+gap:4px;
+}
+
+.role-badge{
+font-size:12px;
+color:#94a3b8;
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.status-dot{
+width:8px;
+height:8px;
+background:#22c55e;
+border-radius:50%;
+box-shadow:0 0 8px #22c55e;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.header-social img{
+width:18px;
+height:18px;
+filter:brightness(0) invert(1);
+transition:0.3s;
+}
+
+.header-social a:hover img{
+transform:scale(1.2);
+filter:none;
+}
+
+.header-cta{
+padding:8px 16px;
+border-radius:6px;
+background:linear-gradient(135deg,#38bdf8,#6366f1);
+color:white;
+text-decoration:none;
+font-size:13px;
+}
+
+.devops-status{
+font-size:12px;
+color:#22c55e;
+display:flex;
+align-items:center;
+gap:6px;
 }
