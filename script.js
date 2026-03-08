@@ -1,19 +1,21 @@
-/* =================================
-PORTFOLIO APPLICATION CONTROLLER
-================================ */
+/* ======================================================
+DEVOPS PORTFOLIO ENGINE
+Author: Shashi Kumar Singh
+Architecture: Modular Frontend Controller
+====================================================== */
 
 const App = {
 
-data: null,
+data:null,
 
 
-/* ================================
+/* ======================================================
 INITIALIZE APPLICATION
-================================ */
+====================================================== */
 
-init: async function () {
+init: async function(){
 
-console.log("Initializing portfolio...")
+this.consoleBanner()
 
 await this.loadComponents()
 
@@ -21,21 +23,37 @@ await this.loadData()
 
 this.renderAll()
 
+this.initializeInteractions()
+
 },
 
 
 
-/* ================================
-LOAD HEADER / FOOTER
-================================ */
+/* ======================================================
+CONSOLE BANNER
+====================================================== */
 
-loadComponents: async function () {
+consoleBanner(){
+
+console.log(
+"%c DevOps Portfolio Engine Loaded ",
+"background:#0ea5e9;color:#020617;font-weight:bold;padding:6px;border-radius:4px"
+)
+
+},
+
+
+
+/* ======================================================
+LOAD COMPONENTS
+====================================================== */
+
+loadComponents: async function(){
 
 await Promise.all([
 
-this.loadComponent("header", "components/header.html"),
-
-this.loadComponent("footer", "components/footer.html")
+this.loadComponent("header","components/header.html"),
+this.loadComponent("footer","components/footer.html")
 
 ])
 
@@ -43,19 +61,21 @@ this.loadComponent("footer", "components/footer.html")
 
 
 
-loadComponent: async function (id, file) {
+loadComponent: async function(id,file){
 
-try {
+try{
 
-const res = await fetch(file)
+const res=await fetch(file)
 
-const html = await res.text()
+const html=await res.text()
 
-document.getElementById(id).innerHTML = html
+document.getElementById(id).innerHTML=html
 
-} catch (err) {
+}
 
-console.error("Component load failed:", file)
+catch(e){
+
+console.error("Component load error:",file)
 
 }
 
@@ -63,23 +83,25 @@ console.error("Component load failed:", file)
 
 
 
-/* ================================
+/* ======================================================
 LOAD DATA.JSON
-================================ */
+====================================================== */
 
-loadData: async function () {
+loadData: async function(){
 
-try {
+try{
 
-const res = await fetch("data.json")
+const res=await fetch("data.json")
 
-this.data = await res.json()
+this.data=await res.json()
 
-console.log("Data loaded successfully")
+console.log("Portfolio data loaded")
 
-} catch (err) {
+}
 
-console.error("Failed loading data.json")
+catch(e){
+
+console.error("data.json failed to load")
 
 }
 
@@ -87,15 +109,19 @@ console.error("Failed loading data.json")
 
 
 
-/* ================================
-RENDER ALL SECTIONS
-================================ */
+/* ======================================================
+RENDER EVERYTHING
+====================================================== */
 
-renderAll: function () {
+renderAll(){
 
-if (!this.data) return
+if(!this.data) return
 
 this.renderHero()
+
+this.renderHeaderLinks()
+
+this.renderFooterLinks()
 
 this.renderContact()
 
@@ -119,49 +145,47 @@ this.renderAchievements()
 
 this.renderTraining()
 
-this.renderFooter()
+this.renderGitHubActivity()
 
 },
 
 
 
-/* ================================
-UTILITIES
-================================ */
+/* ======================================================
+UTILITY FUNCTIONS
+====================================================== */
 
-setText(id, value) {
+setText(id,value){
 
-const el = document.getElementById(id)
+const el=document.getElementById(id)
 
-if (el) el.innerText = value
-
-},
-
-setHref(id, value) {
-
-const el = document.getElementById(id)
-
-if (el) el.href = value
+if(el) el.innerText=value
 
 },
 
-setSrc(id, value) {
+setHref(id,value){
 
-const el = document.getElementById(id)
+const el=document.getElementById(id)
 
-if (el) el.src = value
+if(el) el.href=value
 
 },
 
+setSrc(id,value){
 
+const el=document.getElementById(id)
 
-generateStars(level) {
+if(el) el.src=value
 
-let stars = ""
+},
 
-for (let i = 1; i <= 5; i++) {
+stars(level){
 
-stars += i <= level ? "★" : "☆"
+let stars=""
+
+for(let i=1;i<=5;i++){
+
+stars+= i<=level ? "★":"☆"
 
 }
 
@@ -171,83 +195,113 @@ return stars
 
 
 
-/* ================================
-HERO SECTION
-================================ */
+/* ======================================================
+HERO
+====================================================== */
 
-renderHero() {
+renderHero(){
 
-const p = this.data.personal
+const p=this.data.personal
 
-this.setText("name", p.name)
+this.setText("name",p.name)
+this.setText("title",p.title)
+this.setText("tagline",p.tagline)
 
-this.setText("title", p.title)
+this.setSrc("profileImage",p.profileImage)
 
-this.setText("tagline", p.tagline)
+this.setHref("downloadResume",p.resume)
 
-this.setSrc("profileImage", p.profileImage)
-
-this.setHref("downloadResume", p.resume)
-
-this.setHref("linkedinBtn", p.linkedin)
-
-this.setHref("githubBtn", p.github)
-
-this.setHref("whatsappBtn", p.whatsapp)
+this.setHref("linkedinBtn",p.linkedin)
+this.setHref("githubBtn",p.github)
+this.setHref("whatsappBtn",p.whatsapp)
 
 },
 
 
 
-/* ================================
+/* ======================================================
+HEADER LINKS
+====================================================== */
+
+renderHeaderLinks(){
+
+const p=this.data.personal
+
+this.setText("headerName",p.name)
+
+this.setHref("headerLinkedin",p.linkedin)
+this.setHref("headerGithub",p.github)
+this.setHref("headerEmail","mailto:"+p.email)
+this.setHref("headerWhatsapp",p.whatsapp)
+
+},
+
+
+
+/* ======================================================
+FOOTER LINKS
+====================================================== */
+
+renderFooterLinks(){
+
+const p=this.data.personal
+
+this.setText("footerName",p.name)
+
+this.setHref("footerLinkedin",p.linkedin)
+this.setHref("footerGithub",p.github)
+this.setHref("footerEmail","mailto:"+p.email)
+this.setHref("footerWhatsapp",p.whatsapp)
+
+},
+
+
+
+/* ======================================================
 CONTACT BAR
-================================ */
+====================================================== */
 
-renderContact() {
+renderContact(){
 
-const p = this.data.personal
+const p=this.data.personal
 
-this.setText("emailText", p.email)
+this.setText("emailText",p.email)
+this.setText("phoneText",p.phone)
+this.setText("locationText",p.location)
 
-this.setText("phoneText", p.phone)
-
-this.setText("locationText", p.location)
-
-this.setHref("contactEmailBtn", "mailto:" + p.email)
-
-this.setHref("contactLinkedinBtn", p.linkedin)
-
-this.setHref("contactGithubBtn", p.github)
+this.setHref("contactEmailBtn","mailto:"+p.email)
+this.setHref("contactLinkedinBtn",p.linkedin)
+this.setHref("contactGithubBtn",p.github)
 
 },
 
 
 
-/* ================================
+/* ======================================================
 SUMMARY
-================================ */
+====================================================== */
 
-renderSummary() {
+renderSummary(){
 
-this.setText("summaryText", this.data.summary)
+this.setText("summaryText",this.data.summary)
 
 },
 
 
 
-/* ================================
+/* ======================================================
 COMPETENCIES
-================================ */
+====================================================== */
 
-renderCompetencies() {
+renderCompetencies(){
 
-const container = document.getElementById("competenciesContainer")
+const container=document.getElementById("competenciesContainer")
 
-if (!container) return
+if(!container) return
 
-container.innerHTML = this.data.coreCompetencies
+container.innerHTML=this.data.coreCompetencies
 
-.map(c => `<span class="competency">${c}</span>`)
+.map(c=>`<span class="competency">${c}</span>`)
 
 .join("")
 
@@ -255,33 +309,35 @@ container.innerHTML = this.data.coreCompetencies
 
 
 
-/* ================================
+/* ======================================================
 SKILLS
-================================ */
+====================================================== */
 
-renderSkills() {
+renderSkills(){
 
-const container = document.getElementById("skillsContainer")
+const container=document.getElementById("skillsContainer")
 
-if (!container) return
+let html=""
 
-let html = ""
+for(const category in this.data.skills){
 
-for (const category in this.data.skills) {
+html+=`
 
-html += `<div class="skill-card">
+<div class="skill-card">
 
-<h3>${category}</h3>`
+<h3>${category}</h3>
 
-this.data.skills[category].forEach(skill => {
+`
 
-html += `
+this.data.skills[category].forEach(skill=>{
+
+html+=`
 
 <div class="skill">
 
 <span>${skill.name}</span>
 
-<span class="skill-stars">${this.generateStars(skill.level)}</span>
+<span class="skill-stars">${this.stars(skill.level)}</span>
 
 </div>
 
@@ -289,81 +345,79 @@ html += `
 
 })
 
-html += `</div>`
+html+=`</div>`
 
 }
 
-container.innerHTML = html
+container.innerHTML=html
 
 },
 
 
 
-/* ================================
-DEVOPS TOOL GRID
-================================ */
+/* ======================================================
+DEVOPS TOOLS GRID
+====================================================== */
 
-renderTools() {
+renderTools(){
 
-const container = document.getElementById("toolsContainer")
+const container=document.getElementById("toolsContainer")
 
-if (!container) return
+let tools=[]
 
-let tools = []
+for(const cat in this.data.skills){
 
-for (const category in this.data.skills) {
-
-this.data.skills[category].forEach(skill => {
-
-tools.push(skill.name)
-
-})
+this.data.skills[cat].forEach(s=>tools.push(s.name))
 
 }
 
-tools = [...new Set(tools)]
+tools=[...new Set(tools)]
 
-container.innerHTML = tools
+container.innerHTML=tools.map(t=>
 
-.map(t => `<div class="tool-card">${t}</div>`)
+`<div class="tool-card">
 
-.join("")
+<span>${t}</span>
+
+</div>`
+
+).join("")
 
 },
 
 
 
-/* ================================
-EXPERIENCE TIMELINE
-================================ */
+/* ======================================================
+EXPERIENCE
+====================================================== */
 
-renderExperience() {
+renderExperience(){
 
-const container = document.getElementById("experienceContainer")
+const container=document.getElementById("experienceContainer")
 
-if (!container) return
+container.innerHTML=this.data.experience.map(job=>`
 
-container.innerHTML = this.data.experience.map(job => `
+<div class="experience-card">
 
-<div class="timeline-item">
+<div class="experience-header">
 
-<div class="timeline-dot"></div>
+<img src="${job.logo}" class="company-logo">
 
-<div class="timeline-content">
+<div class="experience-meta">
 
 <h3>${job.role}</h3>
-
 <h4>${job.company}</h4>
-
 <p class="duration">${job.duration}</p>
+
+</div>
+
+</div>
 
 <ul>
 
-${job.responsibilities.map(r => `<li>${r}</li>`).join("")}
+${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
 
 </ul>
-
-</div>
 
 </div>
 
@@ -373,17 +427,15 @@ ${job.responsibilities.map(r => `<li>${r}</li>`).join("")}
 
 
 
-/* ================================
+/* ======================================================
 PROJECTS
-================================ */
+====================================================== */
 
-renderProjects() {
+renderProjects(){
 
-const container = document.getElementById("projectsContainer")
+const container=document.getElementById("projectsContainer")
 
-if (!container) return
-
-container.innerHTML = this.data.projects.map(p => `
+container.innerHTML=this.data.projects.map(p=>`
 
 <div class="project-card">
 
@@ -393,7 +445,7 @@ container.innerHTML = this.data.projects.map(p => `
 
 <div class="tech">
 
-${p.technologies.map(t => `<span class="tech-badge">${t}</span>`).join("")}
+${p.technologies.map(t=>`<span class="tech-badge">${t}</span>`).join("")}
 
 </div>
 
@@ -405,19 +457,17 @@ ${p.technologies.map(t => `<span class="tech-badge">${t}</span>`).join("")}
 
 
 
-/* ================================
+/* ======================================================
 CERTIFICATIONS
-================================ */
+====================================================== */
 
-renderCertifications() {
+renderCertifications(){
 
-const container = document.getElementById("certificationsContainer")
+const container=document.getElementById("certificationsContainer")
 
-if (!container) return
+container.innerHTML=this.data.certifications
 
-container.innerHTML = this.data.certifications
-
-.map(c => `<li>${c}</li>`)
+.map(c=>`<li>${c}</li>`)
 
 .join("")
 
@@ -425,45 +475,35 @@ container.innerHTML = this.data.certifications
 
 
 
-/* ================================
+/* ======================================================
 EDUCATION
-================================ */
+====================================================== */
 
-renderEducation() {
+renderEducation(){
 
-const e = this.data.education
+const e=this.data.education
 
-const container = document.getElementById("educationContainer")
+document.getElementById("educationContainer").innerHTML=
 
-if (!container) return
-
-container.innerHTML = `
-
-<h3>${e.degree}</h3>
-
+`<h3>${e.degree}</h3>
 <p>${e.institution}</p>
-
-<p>${e.year}</p>
-
-`
+<p>${e.year}</p>`
 
 },
 
 
 
-/* ================================
+/* ======================================================
 ACHIEVEMENTS
-================================ */
+====================================================== */
 
-renderAchievements() {
+renderAchievements(){
 
-const container = document.getElementById("achievementsContainer")
+const container=document.getElementById("achievementsContainer")
 
-if (!container) return
+container.innerHTML=this.data.achievements
 
-container.innerHTML = this.data.achievements
-
-.map(a => `<li>${a}</li>`)
+.map(a=>`<li>${a}</li>`)
 
 .join("")
 
@@ -471,24 +511,22 @@ container.innerHTML = this.data.achievements
 
 
 
-/* ================================
-MENTORSHIP / TRAINING
-================================ */
+/* ======================================================
+TRAINING
+====================================================== */
 
-renderTraining() {
+renderTraining(){
 
-const container = document.getElementById("trainingContainer")
+const container=document.getElementById("trainingContainer")
 
-if (!container || !this.data.training) return
+if(!this.data.training) return
 
-container.innerHTML = this.data.training.map(t => `
+container.innerHTML=this.data.training.map(t=>`
 
 <div class="training-card">
 
 <h3>${t.role}</h3>
-
 <h4>${t.organization}</h4>
-
 <p>${t.description}</p>
 
 </div>
@@ -499,21 +537,99 @@ container.innerHTML = this.data.training.map(t => `
 
 
 
-/* ================================
-FOOTER
-================================ */
+/* ======================================================
+GITHUB ACTIVITY GRAPH
+====================================================== */
 
-renderFooter() {
+renderGitHubActivity(){
 
-const p = this.data.personal
+const graph=document.querySelector(".github-graph img")
 
-this.setText("footerName", p.name)
+if(!graph) return
 
-this.setHref("footerLinkedin", p.linkedin)
+graph.src=`https://ghchart.rshah.org/38bdf8/${this.data.personal.githubUser}`
 
-this.setHref("footerGithub", p.github)
+},
 
-this.setHref("footerEmail", "mailto:" + p.email)
+
+
+/* ======================================================
+INTERACTIONS
+====================================================== */
+
+initializeInteractions(){
+
+this.enableSmoothScroll()
+
+this.highlightNavigation()
+
+},
+
+
+
+/* ======================================================
+SMOOTH SCROLL
+====================================================== */
+
+enableSmoothScroll(){
+
+document.querySelectorAll("a[href^='#']").forEach(link=>{
+
+link.addEventListener("click",function(e){
+
+e.preventDefault()
+
+document.querySelector(this.getAttribute("href"))
+
+.scrollIntoView({
+
+behavior:"smooth"
+
+})
+
+})
+
+})
+
+},
+
+
+
+/* ======================================================
+ACTIVE NAVIGATION
+====================================================== */
+
+highlightNavigation(){
+
+const sections=document.querySelectorAll("section")
+
+const navLinks=document.querySelectorAll(".nav-links a")
+
+window.addEventListener("scroll",()=>{
+
+let current=""
+
+sections.forEach(sec=>{
+
+const top=sec.offsetTop-120
+
+if(scrollY>=top) current=sec.getAttribute("id")
+
+})
+
+navLinks.forEach(a=>{
+
+a.classList.remove("active")
+
+if(a.getAttribute("href")==="#"+current){
+
+a.classList.add("active")
+
+}
+
+})
+
+})
 
 }
 
@@ -521,11 +637,11 @@ this.setHref("footerEmail", "mailto:" + p.email)
 
 
 
-/* =================================
-START APPLICATION
-================================ */
+/* ======================================================
+START APP
+====================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",()=>{
 
 App.init()
 
