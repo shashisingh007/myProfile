@@ -18,12 +18,16 @@ this.renderAll()
 
 this.initializeInteractions()
 
+this.initializeCursorGlow()
+
 setTimeout(()=>{
 
 this.initializeAnimations()
 this.initializePipelineAnimation()
 this.initializeJourneyAnimation()
 this.initializeToolAnimations()
+this.initialize3DHovers()
+this.initializeScrollEffects()
 
 },300)
 
@@ -38,7 +42,7 @@ consoleBanner(){
 console.log(
 
 "%c DevOps Portfolio Platform Loaded ",
-"background:#38bdf8;color:#020617;font-weight:bold;padding:8px;border-radius:4px"
+"background:#38bdf8;color:#020617;font-weight:bold;padding:8px;border-radius:6px"
 
 )
 
@@ -80,7 +84,7 @@ console.error("Component load error:",file)
 },
 
 /* ======================================================
-LOAD DATA.JSON
+LOAD DATA
 ====================================================== */
 
 loadData: async function(){
@@ -110,35 +114,25 @@ renderAll(){
 if(!this.data) return
 
 this.renderHero()
-
 this.renderHeaderLinks()
-
 this.renderFooterLinks()
 
 this.renderMetrics()
-
 this.renderContact()
-
 this.renderSummary()
 
 this.renderCompetencies()
-
 this.renderSkills()
-
 this.renderTools()
 
 this.renderCompanies()
-
 this.renderExperience()
 
 this.renderProjects()
 
 this.renderCertifications()
-
 this.renderEducation()
-
 this.renderAchievements()
-
 this.renderTraining()
 
 this.renderGitHubActivity()
@@ -315,9 +309,7 @@ const container=document.getElementById("competenciesContainer")
 if(!container) return
 
 container.innerHTML=this.data.coreCompetencies
-
 .map(c=>`<span class="competency">${c}</span>`)
-
 .join("")
 
 },
@@ -363,7 +355,7 @@ container.innerHTML=html
 },
 
 /* ======================================================
-TOOLS ECOSYSTEM
+TOOLS
 ====================================================== */
 
 renderTools(){
@@ -505,126 +497,6 @@ ${p.technologies.map(t=>`<span class="tech-badge">${t}</span>`).join("")}
 },
 
 /* ======================================================
-CERTIFICATIONS
-====================================================== */
-
-renderCertifications(){
-
-const container=document.getElementById("certificationsContainer")
-
-if(!container) return
-
-container.innerHTML=this.data.certifications
-.map(c=>`<li>${c}</li>`)
-.join("")
-
-},
-
-/* ======================================================
-EDUCATION
-====================================================== */
-
-renderEducation(){
-
-const e=this.data.education
-
-const container=document.getElementById("educationContainer")
-
-if(!container) return
-
-container.innerHTML=`
-
-<h3>${e.degree}</h3>
-<p>${e.institution}</p>
-<p>${e.year}</p>
-
-`
-
-},
-
-/* ======================================================
-ACHIEVEMENTS
-====================================================== */
-
-renderAchievements(){
-
-const container=document.getElementById("achievementsContainer")
-
-if(!container) return
-
-container.innerHTML=this.data.achievements
-.map(a=>`<li>${a}</li>`)
-.join("")
-
-},
-
-/* ======================================================
-TRAINING
-====================================================== */
-
-renderTraining(){
-
-const container=document.getElementById("trainingContainer")
-
-if(!container || !this.data.training) return
-
-container.innerHTML=this.data.training.map(t=>`
-
-<div class="training-card">
-
-<h3>${t.role}</h3>
-<h4>${t.organization}</h4>
-<p>${t.description}</p>
-
-</div>
-
-`).join("")
-
-},
-
-/* ======================================================
-GITHUB GRAPH
-====================================================== */
-
-renderGitHubActivity(){
-
-const graph=document.querySelector(".github-graph img")
-
-if(!graph) return
-
-const username=this.data.personal.github.split("/").pop()
-
-graph.src=`https://ghchart.rshah.org/38bdf8/${username}`
-
-},
-
-/* ======================================================
-SMOOTH SCROLL
-====================================================== */
-
-initializeInteractions(){
-
-document.querySelectorAll("a[href^='#']").forEach(link=>{
-
-link.addEventListener("click",function(e){
-
-e.preventDefault()
-
-const target=document.querySelector(this.getAttribute("href"))
-
-if(target){
-
-target.scrollIntoView({behavior:"smooth"})
-
-}
-
-})
-
-})
-
-},
-
-/* ======================================================
 METRIC COUNTER
 ====================================================== */
 
@@ -638,17 +510,21 @@ const target=+counter.dataset.value
 
 let count=0
 
-const speed=20
+const increment = target/100
 
 const update=()=>{
 
-count++
-
-counter.innerText=count
+count+=increment
 
 if(count<target){
 
-setTimeout(update,speed)
+counter.innerText=Math.floor(count)
+
+requestAnimationFrame(update)
+
+}else{
+
+counter.innerText=target
 
 }
 
@@ -674,14 +550,14 @@ setTimeout(()=>{
 
 node.classList.add("pipeline-active")
 
-},i*350)
+},i*400)
 
 })
 
 },
 
 /* ======================================================
-CAREER JOURNEY ANIMATION
+CAREER JOURNEY
 ====================================================== */
 
 initializeJourneyAnimation(){
@@ -694,7 +570,7 @@ setTimeout(()=>{
 
 node.classList.add("journey-visible")
 
-},i*450)
+},i*500)
 
 })
 
@@ -714,7 +590,85 @@ setTimeout(()=>{
 
 tool.classList.add("tool-visible")
 
-},i*70)
+},i*60)
+
+})
+
+},
+
+/* ======================================================
+3D HOVER EFFECT
+====================================================== */
+
+initialize3DHovers(){
+
+document.querySelectorAll(".tool-card, .project-card, .experience-card").forEach(card=>{
+
+card.addEventListener("mousemove",e=>{
+
+const rect = card.getBoundingClientRect()
+
+const x = e.clientX - rect.left
+const y = e.clientY - rect.top
+
+card.style.transform = `rotateX(${-(y-rect.height/2)/12}deg)
+rotateY(${(x-rect.width/2)/12}deg)
+scale(1.05)`
+
+})
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="rotateX(0) rotateY(0)"
+
+})
+
+})
+
+},
+
+/* ======================================================
+SCROLL EFFECTS
+====================================================== */
+
+initializeScrollEffects(){
+
+const elements=document.querySelectorAll(".section")
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("section-visible")
+
+}
+
+})
+
+},{threshold:0.15})
+
+elements.forEach(el=>observer.observe(el))
+
+},
+
+/* ======================================================
+CURSOR GLOW
+====================================================== */
+
+initializeCursorGlow(){
+
+const glow=document.createElement("div")
+
+glow.className="cursor-glow"
+
+document.body.appendChild(glow)
+
+document.addEventListener("mousemove",e=>{
+
+glow.style.left=e.clientX+"px"
+glow.style.top=e.clientY+"px"
 
 })
 
