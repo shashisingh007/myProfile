@@ -1,15 +1,9 @@
-/* ======================================================
-DEVOPS PORTFOLIO ENGINE
-Author: Shashi Kumar Singh
-Elite DevOps / SRE Portfolio Controller
-====================================================== */
-
 const App = {
 
 data:null,
 
 /* ======================================================
-INITIALIZE APPLICATION
+APPLICATION INIT
 ====================================================== */
 
 init: async function(){
@@ -25,10 +19,13 @@ this.renderAll()
 this.initializeInteractions()
 
 setTimeout(()=>{
+
 this.initializeAnimations()
 this.initializePipelineAnimation()
 this.initializeJourneyAnimation()
-},200)
+this.initializeToolAnimations()
+
+},300)
 
 },
 
@@ -39,8 +36,10 @@ CONSOLE BANNER
 consoleBanner(){
 
 console.log(
+
 "%c DevOps Portfolio Platform Loaded ",
 "background:#38bdf8;color:#020617;font-weight:bold;padding:8px;border-radius:4px"
+
 )
 
 },
@@ -81,7 +80,7 @@ console.error("Component load error:",file)
 },
 
 /* ======================================================
-LOAD DATA
+LOAD DATA.JSON
 ====================================================== */
 
 loadData: async function(){
@@ -103,7 +102,7 @@ console.error("Failed loading data.json")
 },
 
 /* ======================================================
-RENDER ALL SECTIONS
+RENDER ALL
 ====================================================== */
 
 renderAll(){
@@ -225,6 +224,9 @@ this.setHref("headerGithub",p.github)
 this.setHref("headerEmail","mailto:"+p.email)
 this.setHref("headerWhatsapp",p.whatsapp)
 
+this.setText("headerPhone",p.phone)
+this.setText("headerLocation",p.location)
+
 },
 
 /* ======================================================
@@ -236,18 +238,16 @@ renderFooterLinks(){
 const p=this.data.personal
 
 this.setText("footerName",p.name)
+this.setText("footerNameBottom",p.name)
 
 this.setHref("footerLinkedin",p.linkedin)
 this.setHref("footerGithub",p.github)
 this.setHref("footerEmail","mailto:"+p.email)
 this.setHref("footerWhatsapp",p.whatsapp)
 
-this.setText("footerNameBottom",p.name)
-
 this.setHref("footerPhone","tel:"+p.phone)
 
 this.setText("footerPhone",p.phone)
-
 this.setText("footerEmailText",p.email)
 
 },
@@ -315,7 +315,9 @@ const container=document.getElementById("competenciesContainer")
 if(!container) return
 
 container.innerHTML=this.data.coreCompetencies
+
 .map(c=>`<span class="competency">${c}</span>`)
+
 .join("")
 
 },
@@ -361,7 +363,7 @@ container.innerHTML=html
 },
 
 /* ======================================================
-TOOLS ECOSYSTEM (WITH ICON SUPPORT)
+TOOLS ECOSYSTEM
 ====================================================== */
 
 renderTools(){
@@ -388,9 +390,15 @@ return `
 
 <div class="tool-card">
 
-<img src="assets/tools/${icon}.png" alt="${t}" class="tool-icon">
+<img
+src="assets/tools/${icon}.png"
+alt="${t}"
+class="tool-icon"
+onerror="this.src='assets/tools/default.png'"
 
-<span>${t}</span>
+>
+
+<span class="tool-name">${t}</span>
 
 </div>
 
@@ -414,7 +422,7 @@ container.innerHTML=this.data.companies.map((c,i)=>`
 
 <div class="company-node">
 
-<img src="${c.logo}" alt="${c.name}" class="company-icon">
+<img src="${c.logo}" class="company-icon">
 
 <p>${c.name}</p>
 
@@ -447,9 +455,7 @@ container.innerHTML=this.data.experience.map(job=>`
 <div>
 
 <h3>${job.role}</h3>
-
 <h4>${job.company}</h4>
-
 <p class="duration">${job.duration}</p>
 
 </div>
@@ -577,7 +583,7 @@ container.innerHTML=this.data.training.map(t=>`
 },
 
 /* ======================================================
-GITHUB ACTIVITY
+GITHUB GRAPH
 ====================================================== */
 
 renderGitHubActivity(){
@@ -593,7 +599,7 @@ graph.src=`https://ghchart.rshah.org/38bdf8/${username}`
 },
 
 /* ======================================================
-INTERACTIONS
+SMOOTH SCROLL
 ====================================================== */
 
 initializeInteractions(){
@@ -619,7 +625,7 @@ target.scrollIntoView({behavior:"smooth"})
 },
 
 /* ======================================================
-METRIC COUNTER ANIMATION
+METRIC COUNTER
 ====================================================== */
 
 initializeAnimations(){
@@ -668,7 +674,7 @@ setTimeout(()=>{
 
 node.classList.add("pipeline-active")
 
-},i*400)
+},i*350)
 
 })
 
@@ -688,7 +694,27 @@ setTimeout(()=>{
 
 node.classList.add("journey-visible")
 
-},i*500)
+},i*450)
+
+})
+
+},
+
+/* ======================================================
+TOOLS ANIMATION
+====================================================== */
+
+initializeToolAnimations(){
+
+const tools=document.querySelectorAll(".tool-card")
+
+tools.forEach((tool,i)=>{
+
+setTimeout(()=>{
+
+tool.classList.add("tool-visible")
+
+},i*70)
 
 })
 
@@ -697,7 +723,7 @@ node.classList.add("journey-visible")
 }
 
 /* ======================================================
-START APPLICATION
+START APP
 ====================================================== */
 
 document.addEventListener("DOMContentLoaded",()=>{
