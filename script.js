@@ -2,22 +2,25 @@ const App = {
 
 data:null,
 
+/* ================================
+INIT
+================================ */
+
 init: async function(){
 
 await this.loadComponents()
+
 await this.loadData()
 
 this.renderAll()
 
-this.initializeMetricCounter()
-this.initializePipelineAnimation()
-this.initializeJourneyAnimation()
+this.initializeAnimations()
 
 },
 
-/* ===================================== */
-/* LOAD HEADER / FOOTER */
-/* ===================================== */
+/* ================================
+LOAD HEADER + FOOTER
+================================ */
 
 loadComponents: async function(){
 
@@ -34,32 +37,33 @@ loadComponent: async function(id,file){
 
 try{
 
-const res = await fetch(file)
-const html = await res.text()
+const res=await fetch(file)
 
-const el = document.getElementById(id)
+const html=await res.text()
 
-if(el) el.innerHTML = html
+const el=document.getElementById(id)
+
+if(el) el.innerHTML=html
 
 }catch(e){
 
-console.error("Component load error:",file)
+console.error("Failed loading component:",file)
 
 }
 
 },
 
-/* ===================================== */
-/* LOAD DATA */
-/* ===================================== */
+/* ================================
+LOAD DATA.JSON
+================================ */
 
 loadData: async function(){
 
 try{
 
-const res = await fetch("data.json")
+const res=await fetch("data.json")
 
-this.data = await res.json()
+this.data=await res.json()
 
 }catch(e){
 
@@ -69,47 +73,46 @@ console.error("Failed loading data.json")
 
 },
 
-/* ===================================== */
-/* RENDER ALL */
-/* ===================================== */
+/* ================================
+RENDER ALL
+================================ */
 
 renderAll(){
 
 if(!this.data) return
 
 this.renderHero()
-this.renderHeaderLinks()
-this.renderFooterLinks()
+
+this.renderHeader()
+
+this.renderFooter()
 
 this.renderMetrics()
-this.renderContact()
+
 this.renderSummary()
 
 this.renderCompetencies()
+
 this.renderSkills()
+
 this.renderTools()
 
-this.renderCompanies()
 this.renderExperience()
 
 this.renderProjects()
 
-this.renderCertifications()
-this.renderEducation()
-this.renderAchievements()
-this.renderTraining()
-
-this.renderGitHub()
+this.renderContact()
 
 },
 
-/* ===================================== */
-/* HELPERS */
-/* ===================================== */
+/* ================================
+HELPERS
+================================ */
 
 setText(id,value){
 
 const el=document.getElementById(id)
+
 if(el) el.innerText=value
 
 },
@@ -117,6 +120,7 @@ if(el) el.innerText=value
 setHref(id,value){
 
 const el=document.getElementById(id)
+
 if(el) el.href=value
 
 },
@@ -124,6 +128,7 @@ if(el) el.href=value
 setSrc(id,value){
 
 const el=document.getElementById(id)
+
 if(el) el.src=value
 
 },
@@ -134,7 +139,7 @@ let stars=""
 
 for(let i=1;i<=5;i++){
 
-stars += i<=level ? "★":"☆"
+stars+= i<=level ? "★":"☆"
 
 }
 
@@ -142,79 +147,91 @@ return stars
 
 },
 
-/* ===================================== */
-/* HERO */
-/* ===================================== */
+/* ================================
+HERO
+================================ */
 
 renderHero(){
 
 const p=this.data.personal
 
 this.setText("name",p.name)
+
 this.setText("title",p.title)
+
 this.setText("tagline",p.tagline)
 
 this.setSrc("profileImage",p.profileImage)
 
 this.setHref("downloadResume",p.resume)
+
 this.setHref("linkedinBtn",p.linkedin)
+
 this.setHref("githubBtn",p.github)
+
 this.setHref("whatsappBtn",p.whatsapp)
 
 },
 
-/* ===================================== */
-/* HEADER */
-/* ===================================== */
+/* ================================
+HEADER
+================================ */
 
-renderHeaderLinks(){
+renderHeader(){
 
 const p=this.data.personal
 
 this.setText("headerName",p.name)
 
 this.setHref("headerLinkedin",p.linkedin)
+
 this.setHref("headerGithub",p.github)
-this.setHref("headerEmail","mailto:"+p.email)
+
 this.setHref("headerWhatsapp",p.whatsapp)
 
+this.setHref("headerEmail","mailto:"+p.email)
+
 this.setText("headerPhone",p.phone)
+
 this.setText("headerLocation",p.location)
 
 },
 
-/* ===================================== */
-/* FOOTER */
-/* ===================================== */
+/* ================================
+FOOTER
+================================ */
 
-renderFooterLinks(){
+renderFooter(){
 
 const p=this.data.personal
 
 this.setText("footerName",p.name)
+
 this.setText("footerNameBottom",p.name)
 
 this.setHref("footerLinkedin",p.linkedin)
+
 this.setHref("footerGithub",p.github)
-this.setHref("footerEmail","mailto:"+p.email)
+
 this.setHref("footerWhatsapp",p.whatsapp)
 
-this.setHref("footerPhone","tel:"+p.phone)
+this.setHref("footerEmail","mailto:"+p.email)
+
+this.setText("footerEmailText",p.email)
 
 this.setText("footerPhone",p.phone)
-this.setText("footerEmailText",p.email)
 
 },
 
-/* ===================================== */
-/* METRICS */
-/* ===================================== */
+/* ================================
+METRICS
+================================ */
 
 renderMetrics(){
 
 const container=document.querySelector(".metrics-container")
 
-if(!container || !this.data.metrics) return
+if(!container) return
 
 container.innerHTML=this.data.metrics.map(m=>`
 
@@ -230,60 +247,9 @@ container.innerHTML=this.data.metrics.map(m=>`
 
 },
 
-initializeMetricCounter(){
-
-const counters=document.querySelectorAll(".metric-number")
-
-counters.forEach(counter=>{
-
-const target=+counter.dataset.value
-
-let count=0
-
-const update=()=>{
-
-count+=Math.ceil(target/100)
-
-if(count<target){
-
-counter.innerText=count
-requestAnimationFrame(update)
-
-}else{
-
-counter.innerText=target
-
-}
-
-}
-
-update()
-
-})
-
-},
-
-/* ===================================== */
-/* CONTACT */
-/* ===================================== */
-
-renderContact(){
-
-const p=this.data.personal
-
-this.setText("emailText",p.email)
-this.setText("phoneText",p.phone)
-this.setText("locationText",p.location)
-
-this.setHref("contactEmailBtn","mailto:"+p.email)
-this.setHref("contactLinkedinBtn",p.linkedin)
-this.setHref("contactGithubBtn",p.github)
-
-},
-
-/* ===================================== */
-/* SUMMARY */
-/* ===================================== */
+/* ================================
+SUMMARY
+================================ */
 
 renderSummary(){
 
@@ -291,9 +257,9 @@ this.setText("summaryText",this.data.summary)
 
 },
 
-/* ===================================== */
-/* COMPETENCIES */
-/* ===================================== */
+/* ================================
+COMPETENCIES
+================================ */
 
 renderCompetencies(){
 
@@ -302,14 +268,16 @@ const container=document.getElementById("competenciesContainer")
 if(!container) return
 
 container.innerHTML=this.data.coreCompetencies
+
 .map(c=>`<span class="competency">${c}</span>`)
+
 .join("")
 
 },
 
-/* ===================================== */
-/* SKILLS */
-/* ===================================== */
+/* ================================
+SKILLS
+================================ */
 
 renderSkills(){
 
@@ -347,9 +315,9 @@ container.innerHTML=html
 
 },
 
-/* ===================================== */
-/* TOOLS */
-/* ===================================== */
+/* ================================
+TOOLS
+================================ */
 
 renderTools(){
 
@@ -371,12 +339,16 @@ container.innerHTML=tools.map(t=>{
 
 const icon=t.toLowerCase().replace(/\s/g,"-")
 
-return `
+return`
 
 <div class="tool-card">
 
-<img src="assets/tools/${icon}.png"
-onerror="this.src='assets/tools/default.png'">
+<img
+src="assets/tools/${icon}.png"
+alt="${t}"
+onerror="this.src='assets/tools/default.png'"
+
+>
 
 <span>${t}</span>
 
@@ -388,52 +360,9 @@ onerror="this.src='assets/tools/default.png'">
 
 },
 
-/* ===================================== */
-/* COMPANY JOURNEY */
-/* ===================================== */
-
-renderCompanies(){
-
-const container=document.getElementById("companyJourney")
-
-if(!container || !this.data.companies) return
-
-container.innerHTML=this.data.companies.map((c,i)=>`
-
-<div class="company-node">
-
-<img src="${c.logo}" class="company-icon">
-
-<p>${c.name}</p>
-
-</div>
-
-${i < this.data.companies.length-1 ? `<div class="company-route-line"></div>` : ""}
-
-`).join("")
-
-},
-
-initializeJourneyAnimation(){
-
-const nodes=document.querySelectorAll(".company-node")
-
-nodes.forEach((node,i)=>{
-
-setTimeout(()=>{
-
-node.style.opacity=1
-node.style.transform="translateY(0)"
-
-},i*300)
-
-})
-
-},
-
-/* ===================================== */
-/* EXPERIENCE */
-/* ===================================== */
+/* ================================
+EXPERIENCE
+================================ */
 
 renderExperience(){
 
@@ -446,11 +375,15 @@ container.innerHTML=this.data.experience.map(job=>`
 <div class="experience-card">
 
 <h3>${job.role}</h3>
+
 <h4>${job.company}</h4>
+
 <p class="duration">${job.duration}</p>
 
 <ul>
+
 ${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
+
 </ul>
 
 </div>
@@ -459,9 +392,9 @@ ${job.responsibilities.map(r=>`<li>${r}</li>`).join("")}
 
 },
 
-/* ===================================== */
-/* PROJECTS */
-/* ===================================== */
+/* ================================
+PROJECTS
+================================ */
 
 renderProjects(){
 
@@ -489,121 +422,103 @@ ${p.technologies.map(t=>`<span class="tech-badge">${t}</span>`).join("")}
 
 },
 
-/* ===================================== */
-/* CERTIFICATIONS */
-/* ===================================== */
+/* ================================
+CONTACT
+================================ */
 
-renderCertifications(){
+renderContact(){
 
-const container=document.getElementById("certificationsContainer")
+const p=this.data.personal
 
-if(!container) return
+this.setHref("contactEmailBtn","mailto:"+p.email)
 
-container.innerHTML=this.data.certifications
-.map(c=>`<li>${c}</li>`)
-.join("")
+this.setHref("contactLinkedinBtn",p.linkedin)
 
-},
-
-/* ===================================== */
-/* EDUCATION */
-/* ===================================== */
-
-renderEducation(){
-
-const e=this.data.education
-
-const container=document.getElementById("educationContainer")
-
-if(!container) return
-
-container.innerHTML=`
-
-<h3>${e.degree}</h3>
-<p>${e.institution}</p>
-<p>${e.year}</p>
-
-`
+this.setHref("contactGithubBtn",p.github)
 
 },
 
-/* ===================================== */
-/* ACHIEVEMENTS */
-/* ===================================== */
+/* ================================
+ANIMATIONS
+================================ */
 
-renderAchievements(){
+initializeAnimations(){
 
-const container=document.getElementById("achievementsContainer")
+this.animateMetrics()
 
-if(!container) return
-
-container.innerHTML=this.data.achievements
-.map(a=>`<li>${a}</li>`)
-.join("")
+this.initialize3DHovers()
 
 },
 
-/* ===================================== */
-/* TRAINING */
-/* ===================================== */
+animateMetrics(){
 
-renderTraining(){
+const counters=document.querySelectorAll(".metric-number")
 
-const container=document.getElementById("trainingContainer")
+counters.forEach(counter=>{
 
-if(!container || !this.data.training) return
+const target=+counter.dataset.value
 
-container.innerHTML=this.data.training.map(t=>`
+let count=0
 
-<div class="training-card">
+const update=()=>{
 
-<h3>${t.role}</h3>
-<h4>${t.organization}</h4>
-<p>${t.description}</p>
+count+=Math.ceil(target/80)
 
-</div>
+if(count<target){
 
-`).join("")
+counter.innerText=count
 
-},
+requestAnimationFrame(update)
 
-/* ===================================== */
-/* PIPELINE */
-/* ===================================== */
+}else{
 
-initializePipelineAnimation(){
+counter.innerText=target
 
-const nodes=document.querySelectorAll(".pipeline-node")
+}
 
-nodes.forEach((node,i)=>{
+}
 
-setTimeout(()=>{
-
-node.classList.add("pipeline-active")
-
-},i*300)
+update()
 
 })
 
 },
 
-/* ===================================== */
-/* GITHUB GRAPH */
-/* ===================================== */
+initialize3DHovers(){
 
-renderGitHub(){
+document.querySelectorAll(".tool-card,.project-card,.experience-card")
 
-const graph=document.querySelector(".github-graph img")
+.forEach(card=>{
 
-if(!graph) return
+card.addEventListener("mousemove",e=>{
 
-const username=this.data.personal.github.split("/").pop()
+const rect=card.getBoundingClientRect()
 
-graph.src=`https://ghchart.rshah.org/38bdf8/${username}`
+const x=e.clientX-rect.left
+
+const y=e.clientY-rect.top
+
+card.style.transform=`rotateX(${-(y-rect.height/2)/10}deg)
+rotateY(${(x-rect.width/2)/10}deg)
+scale(1.05)`
+
+})
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="rotateX(0) rotateY(0)"
+
+})
+
+})
 
 }
 
 }
+
+/* ================================
+START APP
+================================ */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
