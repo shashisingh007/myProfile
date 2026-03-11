@@ -11,6 +11,7 @@ initHeroTyping()
 
 }
 
+
 /* =========================================
 METRIC CARD HOVER EFFECT
 ========================================= */
@@ -22,23 +23,20 @@ const metrics = document.querySelectorAll(".metric-card")
 metrics.forEach(card => {
 
 card.addEventListener("mouseenter", () => {
-
 card.classList.add("metric-active")
-
 })
 
 card.addEventListener("mouseleave", () => {
-
 card.classList.remove("metric-active")
-
 })
 
 })
 
 }
 
+
 /* =========================================
-SCROLL REVEAL ANIMATION
+SECTION SCROLL REVEAL
 ========================================= */
 
 function initSectionReveal(){
@@ -74,8 +72,9 @@ observer.observe(section)
 
 }
 
+
 /* =========================================
-COUNTER ANIMATION (STARTS ON VIEW)
+COUNTER ANIMATION (ON SCROLL)
 ========================================= */
 
 function initCountersOnScroll(){
@@ -89,7 +88,6 @@ entries.forEach(entry => {
 if(entry.isIntersecting){
 
 animateCounter(entry.target)
-
 observer.unobserve(entry.target)
 
 }
@@ -101,6 +99,7 @@ observer.unobserve(entry.target)
 counters.forEach(counter => observer.observe(counter))
 
 }
+
 
 function animateCounter(counter){
 
@@ -132,8 +131,9 @@ counter.innerText = Math.floor(current)
 
 }
 
+
 /* =========================================
-TYPEWRITER HERO NAME
+HERO TYPEWRITER EFFECT
 ========================================= */
 
 function initHeroTyping(){
@@ -143,6 +143,7 @@ const heroName = document.getElementById("heroName")
 if(!heroName) return
 
 const text = heroName.innerText
+
 heroName.innerText = ""
 
 let index = 0
@@ -169,8 +170,9 @@ type()
 
 }
 
+
 /* =========================================
-HERO SUBTEXT ANIMATION
+HERO TITLE + TAGLINE ANIMATION
 ========================================= */
 
 function animateHeroSubtext(){
@@ -210,6 +212,7 @@ heroTagline.style.transform = "translateY(0)"
 
 }
 
+
 /* =========================================
 RUN AFTER PAGE LOAD
 ========================================= */
@@ -217,9 +220,7 @@ RUN AFTER PAGE LOAD
 document.addEventListener("DOMContentLoaded", () => {
 
 setTimeout(() => {
-
 initAnimations()
-
 },400)
 
 })

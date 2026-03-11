@@ -35,7 +35,6 @@ const tools = [
 ]
 
 const container = document.getElementById("toolsContainer")
-
 if(!container) return
 
 container.innerHTML=""
@@ -117,7 +116,6 @@ METRICS
 function renderMetrics(metrics){
 
 const container = document.getElementById("metricsContainer")
-
 if(!container) return
 
 container.innerHTML = ""
@@ -138,6 +136,54 @@ container.appendChild(card)
 
 })
 
+/* 🔥 START COUNTER ANIMATION AFTER RENDER */
+
+setTimeout(()=>{
+animateCounters()
+},200)
+
+}
+
+
+
+/* =========================================
+COUNTER ANIMATION
+========================================= */
+
+function animateCounters(){
+
+const counters = document.querySelectorAll(".metric-number")
+
+counters.forEach(counter => {
+
+const target = +counter.getAttribute("data-target")
+
+let count = 0
+
+const increment = target / 80
+
+function update(){
+
+count += increment
+
+if(count < target){
+
+counter.innerText = Math.floor(count)
+
+requestAnimationFrame(update)
+
+}else{
+
+counter.innerText = target + "+"
+
+}
+
+}
+
+update()
+
+})
+
 }
 
 
@@ -149,7 +195,6 @@ ABOUT
 function renderAbout(summary){
 
 const about = document.getElementById("aboutText")
-
 if(about) about.innerText = summary
 
 }
@@ -163,7 +208,6 @@ SKILLS
 function renderSkills(skills){
 
 const container = document.getElementById("skillsContainer")
-
 if(!container) return
 
 container.innerHTML = ""
@@ -176,9 +220,7 @@ card.className = "skill-card"
 let items = ""
 
 skills[category].forEach(skill => {
-
 items += `<li>${skill.name}</li>`
-
 })
 
 card.innerHTML = `
@@ -201,7 +243,6 @@ COMPANIES
 function renderCompanies(companies){
 
 const container = document.getElementById("companiesContainer")
-
 if(!container) return
 
 container.innerHTML = ""
@@ -232,7 +273,6 @@ EXPERIENCE
 function renderExperience(exp){
 
 const container = document.getElementById("experienceContainer")
-
 if(!container) return
 
 container.innerHTML = ""
@@ -244,10 +284,8 @@ card.className = "experience-card"
 
 let responsibilities = ""
 
-item.responsibilities.forEach(r => {
-
+item.responsibilities.forEach(r=>{
 responsibilities += `<li>${r}</li>`
-
 })
 
 card.innerHTML = `
@@ -272,7 +310,6 @@ PROJECTS
 function renderProjects(projects){
 
 const container = document.getElementById("projectsContainer")
-
 if(!container) return
 
 container.innerHTML = ""
@@ -307,7 +344,6 @@ CERTIFICATIONS
 function renderCertifications(certifications){
 
 const container = document.getElementById("certificationsContainer")
-
 if(!container) return
 
 container.innerHTML=""
@@ -315,7 +351,6 @@ container.innerHTML=""
 certifications.forEach(cert => {
 
 const card = document.createElement("div")
-
 card.className="skill-card text-center"
 
 card.innerHTML=`<h3>${cert}</h3>`
@@ -334,23 +369,23 @@ CONTACT LINKS
 
 function attachContactLinks(personal){
 
-setTimeout(() => {
+setTimeout(()=>{
 
-document.getElementById("emailLink").href = `mailto:${personal.email}`
-document.getElementById("phoneLink").href = `tel:${personal.phone}`
-document.getElementById("whatsappLink").href = personal.whatsapp
-document.getElementById("linkedinLink").href = personal.linkedin
-document.getElementById("githubLink").href = personal.github
-document.getElementById("resumeBtn").href = personal.resume
+document.getElementById("emailLink").href=`mailto:${personal.email}`
+document.getElementById("phoneLink").href=`tel:${personal.phone}`
+document.getElementById("whatsappLink").href=personal.whatsapp
+document.getElementById("linkedinLink").href=personal.linkedin
+document.getElementById("githubLink").href=personal.github
+document.getElementById("resumeBtn").href=personal.resume
 
-document.getElementById("footerEmail").href = `mailto:${personal.email}`
-document.getElementById("footerPhone").href = `tel:${personal.phone}`
-document.getElementById("footerWhatsapp").href = personal.whatsapp
-document.getElementById("footerLinkedin").href = personal.linkedin
-document.getElementById("footerGithub").href = personal.github
-document.getElementById("footerResume").href = personal.resume
+document.getElementById("footerEmail").href=`mailto:${personal.email}`
+document.getElementById("footerPhone").href=`tel:${personal.phone}`
+document.getElementById("footerWhatsapp").href=personal.whatsapp
+document.getElementById("footerLinkedin").href=personal.linkedin
+document.getElementById("footerGithub").href=personal.github
+document.getElementById("footerResume").href=personal.resume
 
-document.getElementById("footerLocationText").innerText = personal.location
+document.getElementById("footerLocationText").innerText=personal.location
 
 },500)
 
