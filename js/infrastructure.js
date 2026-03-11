@@ -1,6 +1,6 @@
-/* =========================
-INFRASTRUCTURE MAP
-========================= */
+/* =========================================
+INFRASTRUCTURE FLOW DIAGRAM
+========================================= */
 
 function renderInfrastructure(){
 
@@ -8,39 +8,70 @@ const container = document.getElementById("infraMap")
 
 if(!container) return
 
-
 const nodes = [
 
-"User Traffic",
-"AWS Load Balancer",
-"Kubernetes Cluster",
-"Microservices Pods",
-"Redis / Databases"
+{
+name:"Users",
+icon:"🌐"
+},
+
+{
+name:"CDN / Edge",
+icon:"⚡"
+},
+
+{
+name:"AWS Load Balancer",
+icon:"☁️"
+},
+
+{
+name:"Kubernetes Cluster",
+icon:"☸️"
+},
+
+{
+name:"Microservices",
+icon:"📦"
+},
+
+{
+name:"Databases",
+icon:"🗄️"
+},
+
+{
+name:"Monitoring",
+icon:"📊"
+}
 
 ]
 
-
 container.innerHTML=""
-
 
 nodes.forEach((node,index)=>{
 
-const card = document.createElement("div")
+const nodeCard = document.createElement("div")
 
-card.className="infra-node"
+nodeCard.className="infra-node"
 
-card.innerText=node
+nodeCard.innerHTML = `
+<div class="infra-icon">${node.icon}</div>
+<div class="infra-label">${node.name}</div>
+`
 
-container.appendChild(card)
+container.appendChild(nodeCard)
 
 
 if(index !== nodes.length-1){
 
-const line = document.createElement("div")
+const arrow = document.createElement("div")
 
-line.className="infra-line"
+arrow.className="infra-arrow"
 
-container.appendChild(line)
+arrow.innerHTML="➜"
+
+container.appendChild(arrow)
 
 }
 
@@ -48,11 +79,9 @@ container.appendChild(line)
 
 }
 
-
-
-/* =========================
+/* =========================================
 INITIALIZE
-========================= */
+========================================= */
 
 document.addEventListener("DOMContentLoaded",()=>{
 

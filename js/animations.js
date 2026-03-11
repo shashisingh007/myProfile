@@ -1,21 +1,19 @@
-/* =========================
-INITIALIZE ANIMATIONS
-========================= */
+/* =========================================
+INITIALIZE ALL ANIMATIONS
+========================================= */
 
 function initAnimations(){
 
 initMetricHover()
 initSectionReveal()
-initCounters()
-initHeroAnimation()
+initCountersOnScroll()
+initHeroTyping()
 
 }
 
-
-
-/* =========================
-METRIC BUTTON INTERACTION
-========================= */
+/* =========================================
+METRIC CARD HOVER EFFECT
+========================================= */
 
 function initMetricHover(){
 
@@ -39,11 +37,9 @@ card.classList.remove("metric-active")
 
 }
 
-
-
-/* =========================
+/* =========================================
 SCROLL REVEAL ANIMATION
-========================= */
+========================================= */
 
 function initSectionReveal(){
 
@@ -55,85 +51,168 @@ entries.forEach(entry => {
 
 if(entry.isIntersecting){
 
-entry.target.classList.add("visible")
+entry.target.style.opacity = "1"
+entry.target.style.transform = "translateY(0)"
 
 }
 
 })
 
 },{
-threshold:0.2
+threshold:0.15
 })
 
-sections.forEach(section => observer.observe(section))
+sections.forEach(section => {
+
+section.style.opacity = "0"
+section.style.transform = "translateY(60px)"
+section.style.transition = "all 0.9s ease"
+
+observer.observe(section)
+
+})
 
 }
 
+/* =========================================
+COUNTER ANIMATION (STARTS ON VIEW)
+========================================= */
 
-
-/* =========================
-COUNTER ANIMATION
-========================= */
-
-function initCounters(){
+function initCountersOnScroll(){
 
 const counters = document.querySelectorAll(".metric-number")
 
-counters.forEach(counter => {
+const observer = new IntersectionObserver(entries => {
 
-const target = parseInt(counter.getAttribute("data-target"))
+entries.forEach(entry => {
 
-let count = 0
+if(entry.isIntersecting){
 
-const increment = target / 60
+animateCounter(entry.target)
 
-function update(){
-
-count += increment
-
-if(count < target){
-
-counter.innerText = Math.floor(count)
-
-requestAnimationFrame(update)
-
-}else{
-
-counter.innerText = target + "+"
+observer.unobserve(entry.target)
 
 }
-
-}
-
-update()
 
 })
 
+},{ threshold:0.6 })
+
+counters.forEach(counter => observer.observe(counter))
+
 }
 
+function animateCounter(counter){
 
+const target = parseInt(counter.getAttribute("data-target"))
 
-/* =========================
-HERO TEXT ANIMATION
-========================= */
+let current = 0
 
-function initHeroAnimation(){
+const duration = 1200
+const steps = 60
+const increment = target / steps
+const interval = duration / steps
+
+const timer = setInterval(()=>{
+
+current += increment
+
+if(current >= target){
+
+counter.innerText = target + "+"
+clearInterval(timer)
+
+}else{
+
+counter.innerText = Math.floor(current)
+
+}
+
+}, interval)
+
+}
+
+/* =========================================
+TYPEWRITER HERO NAME
+========================================= */
+
+function initHeroTyping(){
 
 const heroName = document.getElementById("heroName")
+
+if(!heroName) return
+
+const text = heroName.innerText
+heroName.innerText = ""
+
+let index = 0
+
+function type(){
+
+if(index < text.length){
+
+heroName.innerText += text.charAt(index)
+
+index++
+
+setTimeout(type,70)
+
+}else{
+
+animateHeroSubtext()
+
+}
+
+}
+
+type()
+
+}
+
+/* =========================================
+HERO SUBTEXT ANIMATION
+========================================= */
+
+function animateHeroSubtext(){
+
 const heroTitle = document.getElementById("heroTitle")
 const heroTagline = document.getElementById("heroTagline")
 
-if(heroName) heroName.classList.add("hero-slide")
-if(heroTitle) heroTitle.classList.add("hero-slide-delay")
-if(heroTagline) heroTagline.classList.add("hero-slide-delay2")
+if(heroTitle){
+
+heroTitle.style.opacity = "0"
+heroTitle.style.transform = "translateY(20px)"
+heroTitle.style.transition = "all 0.6s ease"
+
+setTimeout(()=>{
+
+heroTitle.style.opacity = "1"
+heroTitle.style.transform = "translateY(0)"
+
+},200)
 
 }
 
+if(heroTagline){
 
+heroTagline.style.opacity = "0"
+heroTagline.style.transform = "translateY(20px)"
+heroTagline.style.transition = "all 0.6s ease"
 
-/* =========================
-RUN AFTER LOAD
-========================= */
+setTimeout(()=>{
+
+heroTagline.style.opacity = "1"
+heroTagline.style.transform = "translateY(0)"
+
+},500)
+
+}
+
+}
+
+/* =========================================
+RUN AFTER PAGE LOAD
+========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 

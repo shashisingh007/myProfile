@@ -1,6 +1,6 @@
-/* =========================
+/* =====================================================
 GLOBAL RESET
-========================= */
+===================================================== */
 
 *{
 margin:0;
@@ -9,45 +9,67 @@ box-sizing:border-box;
 }
 
 html,body{
+
 width:100%;
 height:100%;
+
 font-family:'Poppins',sans-serif;
+
 color:white;
-background:#020817;
+
+background:#020617;
+
 scroll-behavior:smooth;
+
 overflow-x:hidden;
+
 }
 
 
 
-/* =========================
-DEVOPS VIDEO BACKGROUND
-========================= */
+/* =====================================================
+DEVOPS BACKGROUND LAYERS
+===================================================== */
 
-#bg-video{
+#particles-js{
 
 position:fixed;
+
 top:0;
 left:0;
 
 width:100%;
 height:100%;
 
-object-fit:cover;
+z-index:-4;
 
-z-index:-3;
-
-filter:brightness(40%);
+background:#020617;
 
 }
 
 
 
-/* =========================
-BACKGROUND OVERLAY
-========================= */
+/* DEVOPS NETWORK CANVAS */
 
-.background-overlay{
+#devops-network{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+z-index:-3;
+
+}
+
+
+
+/* PIPELINE FLOW */
+
+#pipeline-flow{
 
 position:fixed;
 
@@ -59,32 +81,77 @@ height:100%;
 
 z-index:-2;
 
-background:linear-gradient(
-180deg,
-rgba(3,8,23,0.85),
-rgba(2,6,18,0.95)
-);
+}
+
+
+
+/* =====================================================
+OPTIONAL VIDEO BACKGROUND
+===================================================== */
+
+#bg-video{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+z-index:-5;
+
+filter:brightness(0.35);
 
 }
 
 
 
-/* =========================
+/* =====================================================
+BACKGROUND OVERLAY
+===================================================== */
+
+.background-overlay{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:linear-gradient(
+180deg,
+rgba(2,6,23,0.75),
+rgba(2,6,23,0.95)
+);
+
+z-index:-1;
+
+}
+
+
+
+/* =====================================================
 SECTION SPACING
-========================= */
+===================================================== */
 
 .section{
 
-padding-top:120px;
-padding-bottom:120px;
+padding:100px 0;
+
+position:relative;
 
 }
 
 
 
-/* =========================
-SECTION TITLE
-========================= */
+/* =====================================================
+SECTION TITLES
+===================================================== */
 
 .section-title{
 
@@ -96,41 +163,45 @@ margin-bottom:50px;
 
 color:#22d3ee;
 
+letter-spacing:0.5px;
+
 }
 
 
 
-/* =========================
-TEXT COLORS
-========================= */
+/* =====================================================
+TEXT STYLE
+===================================================== */
 
 p{
 
 color:#cbd5e1;
 
-line-height:1.6;
+line-height:1.7;
 
 font-size:16px;
 
+max-width:720px;
+
 }
 
 
 
-/* =========================
+/* =====================================================
 CONTAINER WIDTH
-========================= */
+===================================================== */
 
 .container{
 
-max-width:1200px;
+max-width:1300px;
 
 }
 
 
 
-/* =========================
+/* =====================================================
 SCROLLBAR
-========================= */
+===================================================== */
 
 ::-webkit-scrollbar{
 
@@ -140,22 +211,23 @@ width:8px;
 
 ::-webkit-scrollbar-track{
 
-background:#020817;
+background:#020617;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
 background:#0ea5e9;
+
 border-radius:4px;
 
 }
 
 
 
-/* =========================
+/* =====================================================
 LINK STYLE
-========================= */
+===================================================== */
 
 a{
 
@@ -163,7 +235,7 @@ text-decoration:none;
 
 color:white;
 
-transition:0.3s;
+transition:0.25s;
 
 }
 
@@ -175,14 +247,41 @@ color:#22d3ee;
 
 
 
-/* =========================
-UTILITY
-========================= */
+/* =====================================================
+UTILITY CLASSES
+===================================================== */
 
 .text-highlight{
 
 color:#22d3ee;
 
 font-weight:600;
+
+}
+
+
+
+/* =====================================================
+DEVOPS GLOW UTILITY
+===================================================== */
+
+.glow{
+
+box-shadow:0 0 15px rgba(34,211,238,0.4);
+
+}
+
+
+
+/* =====================================================
+CONTENT WRAPPER
+===================================================== */
+
+.hero-section,
+.section{
+
+position:relative;
+
+z-index:2;
 
 }

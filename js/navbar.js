@@ -1,19 +1,19 @@
-/* =========================
-NAVBAR INITIALIZATION
-========================= */
+/* =========================================
+INITIALIZE NAVBAR
+========================================= */
 
 function initNavbar(){
 
 enableSmoothScroll()
 highlightActiveSection()
+navbarScrollEffect()
+createScrollProgress()
 
 }
 
-
-
-/* =========================
+/* =========================================
 SMOOTH SCROLL
-========================= */
+========================================= */
 
 function enableSmoothScroll(){
 
@@ -23,9 +23,12 @@ links.forEach(link => {
 
 link.addEventListener("click", function(e){
 
+const targetId = this.getAttribute("href")
+
+if(targetId.startsWith("#")){
+
 e.preventDefault()
 
-const targetId = this.getAttribute("href")
 const targetSection = document.querySelector(targetId)
 
 if(targetSection){
@@ -39,17 +42,17 @@ behavior: "smooth"
 
 }
 
+}
+
 })
 
 })
 
 }
 
-
-
-/* =========================
+/* =========================================
 ACTIVE LINK HIGHLIGHT
-========================= */
+========================================= */
 
 function highlightActiveSection(){
 
@@ -90,11 +93,68 @@ link.classList.add("active")
 
 }
 
+/* =========================================
+NAVBAR SCROLL EFFECT
+========================================= */
 
+function navbarScrollEffect(){
 
-/* =========================
+const header = document.querySelector(".header")
+
+window.addEventListener("scroll", ()=>{
+
+if(window.scrollY > 60){
+
+header.style.padding = "12px 60px"
+header.style.background = "rgba(2,6,23,0.95)"
+header.style.boxShadow = "0 5px 20px rgba(0,0,0,0.4)"
+
+}else{
+
+header.style.padding = "18px 60px"
+header.style.background = "rgba(2,6,23,0.85)"
+header.style.boxShadow = "none"
+
+}
+
+})
+
+}
+
+/* =========================================
+SCROLL PROGRESS BAR
+========================================= */
+
+function createScrollProgress(){
+
+const bar = document.createElement("div")
+
+bar.style.position = "fixed"
+bar.style.top = "0"
+bar.style.left = "0"
+bar.style.height = "3px"
+bar.style.width = "0%"
+bar.style.background = "#38bdf8"
+bar.style.zIndex = "2000"
+
+document.body.appendChild(bar)
+
+window.addEventListener("scroll", ()=>{
+
+const scrollTop = window.scrollY
+const docHeight = document.body.scrollHeight - window.innerHeight
+
+const progress = (scrollTop / docHeight) * 100
+
+bar.style.width = progress + "%"
+
+})
+
+}
+
+/* =========================================
 RUN NAVBAR
-========================= */
+========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 

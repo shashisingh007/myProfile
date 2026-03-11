@@ -1,263 +1,280 @@
 {
-  "personal": {
-    "name": "Shashi Kumar Singh",
-    "title": "Senior DevOps & Platform Engineer",
-    "tagline": "Designing scalable cloud infrastructure, DevOps automation platforms and Kubernetes ecosystems.",
-    "location": "Gurugram, India",
+"personal": {
+"name": "Shashi Kumar Singh",
+"title": "Senior DevOps & Platform Engineer",
+"tagline": "Building scalable cloud platforms, Kubernetes ecosystems and enterprise DevOps automation systems.",
+"location": "Gurugram, India",
 
-    "profileImage": "assets/profile.jpg",
-    "resume": "assets/resume.pdf",
+"profileImage": "assets/profile.jpg",
+"resume": "assets/resume.pdf",
 
-    "email": "shashi.gotit38@gmail.com",
-    "phone": "+917903286693",
-    "whatsapp": "https://wa.me/917903286693",
+"email": "shashi.gotit38@gmail.com",
+"phone": "+917903286693",
+"whatsapp": "https://wa.me/917903286693",
 
-    "linkedin": "https://linkedin.com/in/shashi-kumar-singh-52984b127",
-    "github": "https://github.com/shashisingh007"
-  },
+"linkedin": "https://linkedin.com/in/shashi-kumar-singh-52984b127",
+"github": "https://github.com/shashisingh007"
 
-  "metrics": [
-    { "value": "7+", "label": "Years Experience" },
-    { "value": "50+", "label": "Infrastructure Pipelines" },
-    { "value": "30+", "label": "Production Deployments" },
-    { "value": "15+", "label": "DevOps Tools" }
-  ],
+},
 
-  "summary": "Senior DevOps & Platform Engineer with 7+ years of experience designing scalable cloud infrastructure, CI/CD automation platforms, Kubernetes ecosystems and distributed systems. Strong expertise in AWS cloud architecture, Infrastructure as Code using Terraform, container orchestration using Kubernetes and observability platforms using Prometheus and Grafana. Passionate about improving engineering velocity and platform reliability through DevOps automation.",
+"metrics": [
+{ "value": "7+", "label": "Years Experience" },
+{ "value": "50+", "label": "CI/CD Pipelines Built" },
+{ "value": "30+", "label": "Production Deployments" },
+{ "value": "15+", "label": "DevOps Tools Used" }
+],
 
-  "coreCompetencies": [
-    "DevOps Engineering",
-    "Platform Engineering",
-    "Site Reliability Engineering",
-    "Infrastructure as Code",
-    "Cloud Architecture",
-    "CI/CD Platform Engineering",
-    "Container Orchestration",
-    "Observability & Monitoring",
-    "Cloud Security",
-    "Distributed Systems"
-  ],
+"summary": "Senior DevOps & Platform Engineer with 7+ years of experience designing cloud infrastructure, building Kubernetes platforms and developing enterprise CI/CD automation systems. Strong expertise in AWS architecture, Infrastructure as Code using Terraform, container orchestration with Kubernetes and observability platforms using Prometheus and Grafana. Passionate about improving platform reliability, engineering productivity and system scalability through DevOps automation and modern platform engineering practices.",
 
-  "companies": [
-    {
-      "name": "Adidas",
-      "logo": "assets/company/adidas.png",
-      "industry": "Retail Technology"
-    },
-    {
-      "name": "FIS Global",
-      "logo": "assets/company/fis.png",
-      "industry": "FinTech"
-    },
-    {
-      "name": "Intimetec",
-      "logo": "assets/company/intimetec.png",
-      "industry": "Technology Services"
-    },
-    {
-      "name": "CloudTechner",
-      "logo": "assets/company/cloudtechner.png",
-      "industry": "Cloud Engineering Training"
-    }
-  ],
+"devopsStack": {
 
-  "cloudPlatforms": [
-    {
-      "name": "AWS",
-      "logo": "assets/tools/aws.png"
-    },
-    {
-      "name": "Azure",
-      "logo": "assets/tools/azure.png"
-    },
-    {
-      "name": "GCP",
-      "logo": "assets/tools/gcp.png"
-    }
-  ],
+"Cloud Platforms": [
+  "AWS",
+  "Azure",
+  "GCP"
+],
 
-  "skills": {
+"Containers & Orchestration": [
+  "Docker",
+  "Kubernetes",
+  "Helm"
+],
 
-    "Cloud Platforms": [
-      { "name": "AWS", "level": 5 },
-      { "name": "Azure", "level": 4 },
-      { "name": "GCP", "level": 4 }
-    ],
+"Infrastructure as Code": [
+  "Terraform",
+  "CloudFormation",
+  "Ansible"
+],
 
-    "AWS Services": [
-      { "name": "EC2", "level": 5 },
-      { "name": "S3", "level": 5 },
-      { "name": "RDS", "level": 5 },
-      { "name": "VPC", "level": 5 },
-      { "name": "IAM", "level": 5 },
-      { "name": "CloudWatch", "level": 4 },
-      { "name": "Route53", "level": 4 },
-      { "name": "ELB", "level": 4 },
-      { "name": "EKS", "level": 5 }
-    ],
+"CI/CD Platforms": [
+  "Jenkins",
+  "GitHub Actions",
+  "Azure DevOps",
+  "GitLab CI",
+  "ArgoCD"
+],
 
-    "Containers": [
-      { "name": "Docker", "level": 5 },
-      { "name": "Kubernetes", "level": 5 },
-      { "name": "Helm", "level": 4 }
-    ],
+"Monitoring & Observability": [
+  "Prometheus",
+  "Grafana",
+  "ELK Stack",
+  "Zabbix"
+],
 
-    "Infrastructure as Code": [
-      { "name": "Terraform", "level": 5 },
-      { "name": "Ansible", "level": 4 },
-      { "name": "CloudFormation", "level": 3 }
-    ],
+"Databases": [
+  "MySQL",
+  "PostgreSQL",
+  "Redis"
+],
 
-    "CI/CD": [
-      { "name": "Jenkins", "level": 5 },
-      { "name": "GitHub Actions", "level": 5 },
-      { "name": "Azure DevOps", "level": 4 },
-      { "name": "GitLab CI", "level": 4 },
-      { "name": "ArgoCD", "level": 4 }
-    ],
+"Programming": [
+  "Python",
+  "Bash",
+  "PowerShell"
+],
 
-    "Monitoring": [
-      { "name": "Prometheus", "level": 5 },
-      { "name": "Grafana", "level": 5 },
-      { "name": "Zabbix", "level": 4 },
-      { "name": "ELK Stack", "level": 4 }
-    ],
+"Security": [
+  "IAM",
+  "Network Security",
+  "Secrets Management"
+]
 
-    "Programming": [
-      { "name": "Python", "level": 4 },
-      { "name": "Bash", "level": 5 },
-      { "name": "PowerShell", "level": 4 }
-    ],
+},
 
-    "Databases": [
-      { "name": "Redis", "level": 4 },
-      { "name": "MySQL", "level": 4 },
-      { "name": "PostgreSQL", "level": 4 }
-    ],
+"companies": [
+{
+"name": "Adidas",
+"logo": "assets/company/adidas.png",
+"industry": "Retail Technology"
+},
+{
+"name": "FIS Global",
+"logo": "assets/company/fis.png",
+"industry": "FinTech"
+},
+{
+"name": "Intimetec",
+"logo": "assets/company/intimetec.png",
+"industry": "Technology Services"
+},
+{
+"name": "CloudTechner",
+"logo": "assets/company/cloudtechner.png",
+"industry": "Cloud Engineering Training"
+}
+],
 
-    "Data Platforms": [
-      { "name": "Databricks", "level": 4 }
-    ]
-  },
+"skills": {
 
-  "experience": [
-    {
-      "company": "Adidas",
-      "logo": "assets/company/adidas.png",
-      "role": "Senior DevOps Engineer",
-      "duration": "Apr 2023 – Present",
-      "location": "Gurugram",
-      "responsibilities": [
-        "Designed Kubernetes infrastructure supporting microservices platforms.",
-        "Implemented CI/CD pipelines using Jenkins and GitHub Actions.",
-        "Built Terraform modules for AWS infrastructure automation.",
-        "Implemented centralized observability using Prometheus and Grafana."
-      ]
-    },
+"Cloud Platforms": [
+  { "name": "AWS", "level": 5 },
+  { "name": "Azure", "level": 4 },
+  { "name": "GCP", "level": 4 }
+],
 
-    {
-      "company": "FIS Global",
-      "logo": "assets/company/fis.png",
-      "role": "DevOps Engineer",
-      "duration": "Sep 2022 – Mar 2023",
-      "location": "Gurugram",
-      "responsibilities": [
-        "Migrated enterprise financial systems infrastructure to AWS.",
-        "Built automated CI/CD pipelines for production applications.",
-        "Implemented monitoring and logging solutions."
-      ]
-    },
+"Containers": [
+  { "name": "Docker", "level": 5 },
+  { "name": "Kubernetes", "level": 5 },
+  { "name": "Helm", "level": 4 }
+],
 
-    {
-      "company": "Intimetec",
-      "logo": "assets/company/intimetec.png",
-      "role": "Systems Engineer",
-      "duration": "May 2021 – Sep 2022",
-      "location": "Jaipur",
-      "responsibilities": [
-        "Developed automation scripts using Python and Bash.",
-        "Managed Linux infrastructure for enterprise workloads.",
-        "Implemented monitoring systems improving operational visibility."
-      ]
-    },
+"Infrastructure as Code": [
+  { "name": "Terraform", "level": 5 },
+  { "name": "Ansible", "level": 4 },
+  { "name": "CloudFormation", "level": 3 }
+],
 
-    {
-      "company": "CloudTechner",
-      "logo": "assets/company/cloudtechner.png",
-      "role": "Cloud Engineering Trainee",
-      "duration": "2019 – 2020",
-      "location": "India",
-      "responsibilities": [
-        "Worked with AWS services including EC2, VPC and S3.",
-        "Developed automation scripts for infrastructure provisioning.",
-        "Learned DevOps and cloud architecture fundamentals."
-      ]
-    }
-  ],
+"CI/CD": [
+  { "name": "Jenkins", "level": 5 },
+  { "name": "GitHub Actions", "level": 5 },
+  { "name": "Azure DevOps", "level": 4 },
+  { "name": "GitLab CI", "level": 4 },
+  { "name": "ArgoCD", "level": 4 }
+],
 
-  "projects": [
-    {
-      "name": "Kubernetes Production Platform",
-      "category": "DevOps Platform",
-      "description": "Designed Kubernetes clusters supporting microservices applications.",
-      "impact": "Improved scalability and high availability.",
-      "technologies": ["Kubernetes", "Docker", "Helm"]
-    },
+"Monitoring": [
+  { "name": "Prometheus", "level": 5 },
+  { "name": "Grafana", "level": 5 },
+  { "name": "ELK Stack", "level": 4 },
+  { "name": "Zabbix", "level": 4 }
+],
 
-    {
-      "name": "Terraform Infrastructure Framework",
-      "category": "Infrastructure as Code",
-      "description": "Developed reusable Terraform modules for AWS infrastructure.",
-      "impact": "Reduced infrastructure provisioning time by 60%.",
-      "technologies": ["Terraform", "AWS"]
-    },
+"Programming": [
+  { "name": "Python", "level": 4 },
+  { "name": "Bash", "level": 5 },
+  { "name": "PowerShell", "level": 4 }
+],
 
-    {
-      "name": "CI/CD DevOps Platform",
-      "category": "Automation",
-      "description": "Automated application deployment pipelines.",
-      "impact": "Improved deployment velocity.",
-      "technologies": ["Jenkins", "GitHub Actions"]
-    },
+"Databases": [
+  { "name": "MySQL", "level": 4 },
+  { "name": "PostgreSQL", "level": 4 },
+  { "name": "Redis", "level": 4 }
+],
 
-    {
-      "name": "Observability Monitoring Platform",
-      "category": "Monitoring",
-      "description": "Centralized monitoring stack for microservices.",
-      "impact": "Improved incident response time.",
-      "technologies": ["Prometheus", "Grafana"]
-    }
-  ],
+"Data Platforms": [
+  { "name": "Databricks", "level": 4 }
+]
 
-  "certifications": [
-    "Certified Kubernetes Administrator (CKA)",
-    "Terraform Associate",
-    "AWS Solutions Architect"
-  ],
+},
 
-  "education": {
-    "degree": "B.Tech Computer Science",
-    "institution": "Global Institute of Technology",
-    "location": "Jaipur",
-    "year": "2016 – 2020"
-  },
+"experience": [
+{
+"company": "Adidas",
+"role": "Senior DevOps Engineer",
+"duration": "Apr 2023 – Present",
+"location": "Gurugram",
+"responsibilities": [
+"Designed Kubernetes infrastructure supporting microservices based retail applications.",
+"Built automated CI/CD pipelines enabling rapid and reliable application deployments.",
+"Developed reusable Terraform modules for scalable AWS infrastructure provisioning.",
+"Implemented centralized monitoring platform using Prometheus and Grafana.",
+"Reduced deployment time by 70% through DevOps automation."
+]
+},
+{
+"company": "FIS Global",
+"role": "DevOps Engineer",
+"duration": "Sep 2022 – Mar 2023",
+"location": "Gurugram",
+"responsibilities": [
+"Migrated financial application infrastructure to AWS cloud.",
+"Built CI/CD pipelines automating build and deployment workflows.",
+"Implemented monitoring and logging solutions for enterprise applications."
+]
+},
+{
+"company": "Intimetec",
+"role": "Systems Engineer",
+"duration": "May 2021 – Sep 2022",
+"location": "Jaipur",
+"responsibilities": [
+"Developed automation scripts using Python and Bash.",
+"Managed Linux infrastructure supporting enterprise workloads.",
+"Implemented monitoring solutions improving operational visibility."
+]
+}
+],
 
-  "achievements": [
-    "Improved platform uptime to 99.99%",
-    "Reduced infrastructure deployment time by 60%",
-    "Built scalable DevOps platforms used across engineering teams"
-  ],
+"projects": [
+{
+"name": "Enterprise Kubernetes Platform",
+"category": "Platform Engineering",
+"description": "Built Kubernetes infrastructure supporting microservices architecture.",
+"impact": "Enabled scalable application deployment.",
+"technologies": ["Kubernetes", "Docker", "Helm"]
+},
+{
+"name": "Terraform Infrastructure Framework",
+"category": "Infrastructure as Code",
+"description": "Developed reusable Terraform modules for AWS infrastructure.",
+"impact": "Reduced infrastructure provisioning time by 60%.",
+"technologies": ["Terraform", "AWS"]
+},
+{
+"name": "CI/CD DevOps Platform",
+"category": "Automation",
+"description": "Automated application deployment pipelines.",
+"impact": "Improved deployment velocity.",
+"technologies": ["Jenkins", "GitHub Actions"]
+},
+{
+"name": "Observability Monitoring Platform",
+"category": "Monitoring",
+"description": "Centralized monitoring stack for microservices infrastructure.",
+"impact": "Improved incident response time.",
+"technologies": ["Prometheus", "Grafana"]
+},
+{
+"name": "GitOps Deployment Platform",
+"category": "GitOps",
+"description": "Implemented GitOps workflows enabling automated Kubernetes deployments.",
+"impact": "Improved deployment transparency and rollback capabilities.",
+"technologies": ["ArgoCD", "Kubernetes"]
+},
+{
+"name": "Cloud Cost Optimization Framework",
+"category": "Cloud Engineering",
+"description": "Implemented infrastructure monitoring and optimization strategies.",
+"impact": "Reduced cloud costs through resource optimization.",
+"technologies": ["AWS", "CloudWatch"]
+}
+],
 
-  "training": [
-    {
-      "role": "DevOps Mentor",
-      "organization": "FutureFlow",
-      "description": "Mentoring engineers in DevOps, cloud engineering and Kubernetes."
-    },
-    {
-      "role": "DevOps Engineer",
-      "organization": "Inclination IT Innovations",
-      "description": "Building infrastructure automation solutions for clients using AWS and Terraform."
-    }
-  ]
+"architectures": [
+{
+"name": "AWS Microservices Architecture",
+"image": "assets/architecture/aws-architecture.png"
+},
+{
+"name": "CI/CD Pipeline Architecture",
+"image": "assets/architecture/cicd-pipeline.png"
+},
+{
+"name": "Kubernetes Cluster Architecture",
+"image": "assets/architecture/kubernetes-architecture.png"
+},
+{
+"name": "Observability Platform Architecture",
+"image": "assets/architecture/monitoring-architecture.png"
+}
+],
+
+"certifications": [
+"Certified Kubernetes Administrator (CKA)",
+"Terraform Associate",
+"AWS Solutions Architect"
+],
+
+"education": {
+"degree": "B.Tech Computer Science",
+"institution": "Global Institute of Technology",
+"location": "Jaipur"
+},
+
+"achievements": [
+"Improved platform uptime to 99.99%",
+"Reduced infrastructure deployment time by 60%",
+"Built DevOps platforms used across engineering teams",
+"Automated infrastructure provisioning across environments"
+]
 }

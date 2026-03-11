@@ -1,6 +1,30 @@
-/* =========================
+/* =========================================
+GLOBAL PAGE LAYOUT
+========================================= */
+
+body{
+
+background:#020617;
+color:#e2e8f0;
+
+overflow-x:hidden;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+.section{
+
+padding-top:110px;
+padding-bottom:110px;
+
+position:relative;
+
+}
+
+/* =========================================
 HERO SECTION
-========================= */
+========================================= */
 
 .hero-section{
 
@@ -10,19 +34,25 @@ min-height:100vh;
 
 display:flex;
 align-items:center;
+justify-content:center;
 
 padding-top:140px;
-padding-bottom:120px;
+padding-bottom:80px;
 
 overflow:hidden;
 
 }
 
+.hero-content{
 
+max-width:1100px;
+margin:auto;
 
-/* =========================
+}
+
+/* =========================================
 PROFILE IMAGE
-========================= */
+========================================= */
 
 .profile-image{
 
@@ -35,22 +65,24 @@ border:5px solid #22d3ee;
 
 object-fit:cover;
 
-box-shadow:0 0 45px rgba(34,211,238,0.45);
+box-shadow:
+0 0 45px rgba(34,211,238,0.45),
+0 0 90px rgba(34,211,238,0.2);
 
 }
 
-
-
-/* =========================
+/* =========================================
 HERO TEXT
-========================= */
+========================================= */
 
 #heroName{
 
-font-size:44px;
+font-size:46px;
 font-weight:700;
 
 margin-bottom:10px;
+
+letter-spacing:1px;
 
 }
 
@@ -60,55 +92,71 @@ font-size:24px;
 
 color:#22d3ee;
 
-margin-bottom:15px;
+margin-bottom:18px;
 
 }
 
 #heroTagline{
 
-max-width:600px;
+max-width:640px;
 
 margin-bottom:35px;
 
+font-size:16px;
+
+color:#cbd5e1;
+
 }
 
-
-
-/* =========================
-METRICS
-========================= */
+/* =========================================
+METRICS GRID
+========================================= */
 
 .metrics-container{
 
 display:grid;
 
-grid-template-columns:repeat(2,180px);
+grid-template-columns:repeat(2,minmax(180px,1fr));
 
 gap:25px;
+
+max-width:500px;
 
 }
 
 .metric-card{
 
-padding:20px 30px;
+padding:22px 30px;
 
-border-radius:10px;
+border-radius:12px;
 
-background:rgba(15,23,42,0.9);
+background:linear-gradient(
+145deg,
+#0f172a,
+#1e293b
+);
 
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.06);
 
 text-align:center;
 
-min-width:160px;
+transition:all .25s ease;
 
-transition:0.3s;
+}
+
+.metric-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 10px 35px rgba(0,0,0,0.45);
+
+border-color:#22d3ee;
 
 }
 
 .metric-number{
 
-font-size:28px;
+font-size:30px;
 font-weight:700;
 
 color:#22d3ee;
@@ -121,13 +169,13 @@ font-size:14px;
 
 color:#94a3b8;
 
+margin-top:6px;
+
 }
 
-
-
-/* =========================
+/* =========================================
 TOOLS GRID
-========================= */
+========================================= */
 
 .tools-grid{
 
@@ -157,7 +205,17 @@ border:1px solid rgba(255,255,255,0.05);
 
 text-align:center;
 
-transition:0.3s;
+transition:all .25s ease;
+
+}
+
+.tool-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 15px 30px rgba(0,0,0,0.4);
+
+border-color:#22d3ee;
 
 }
 
@@ -178,17 +236,15 @@ color:#cbd5f5;
 
 }
 
-
-
-/* =========================
+/* =========================================
 SKILLS GRID
-========================= */
+========================================= */
 
 .skills-grid{
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 
 gap:30px;
 
@@ -198,7 +254,7 @@ gap:30px;
 
 padding:30px;
 
-border-radius:12px;
+border-radius:14px;
 
 background:linear-gradient(
 145deg,
@@ -207,6 +263,16 @@ background:linear-gradient(
 );
 
 border:1px solid rgba(255,255,255,0.05);
+
+transition:all .25s ease;
+
+}
+
+.skill-card:hover{
+
+transform:translateY(-5px);
+
+border-color:#22d3ee;
 
 }
 
@@ -226,11 +292,9 @@ color:#cbd5e1;
 
 }
 
-
-
-/* =========================
+/* =========================================
 COMPANIES GRID
-========================= */
+========================================= */
 
 .company-grid{
 
@@ -258,7 +322,15 @@ border:1px solid rgba(255,255,255,0.05);
 
 text-align:center;
 
-transition:0.3s;
+transition:all .25s ease;
+
+}
+
+.company-card:hover{
+
+transform:translateY(-6px);
+
+border-color:#22d3ee;
 
 }
 
@@ -270,11 +342,9 @@ margin-bottom:15px;
 
 }
 
-
-
-/* =========================
+/* =========================================
 EXPERIENCE
-========================= */
+========================================= */
 
 .experience-card{
 
@@ -292,13 +362,21 @@ border:1px solid rgba(255,255,255,0.05);
 
 margin-bottom:30px;
 
+transition:all .25s ease;
+
 }
 
+.experience-card:hover{
 
+transform:translateY(-6px);
 
-/* =========================
+border-color:#22d3ee;
+
+}
+
+/* =========================================
 PROJECTS
-========================= */
+========================================= */
 
 .project-card{
 
@@ -316,13 +394,21 @@ border:1px solid rgba(255,255,255,0.05);
 
 margin-bottom:25px;
 
+transition:all .25s ease;
+
 }
 
+.project-card:hover{
 
+transform:translateY(-6px);
 
-/* =========================
+border-color:#22d3ee;
+
+}
+
+/* =========================================
 HERO IMAGE GLOW
-========================= */
+========================================= */
 
 .hero-image-wrapper{
 
@@ -360,11 +446,9 @@ animation:heroPulse 3s infinite;
 
 }
 
-
-
-/* =========================
-PARTICLE BACKGROUND
-========================= */
+/* =========================================
+DEVOPS BACKGROUND NETWORK
+========================================= */
 
 #particles-js{
 
@@ -376,20 +460,24 @@ left:0;
 width:100%;
 height:100%;
 
-background:#020617;
+background:radial-gradient(
+circle at center,
+#03122e,
+#010814
+);
 
 z-index:-2;
 
+pointer-events:none;
+
 }
 
-
-
-/* =========================
-BODY BACKGROUND
-========================= */
-
-body{
-
-background:#020617;
-
+#particles-js{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
+background: radial-gradient(circle at center,#021028,#010814);
 }

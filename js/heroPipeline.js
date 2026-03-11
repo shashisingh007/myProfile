@@ -1,10 +1,11 @@
-/* =========================
-HERO PIPELINE VISUAL
-========================= */
+/* =========================================
+HERO DEVOPS PIPELINE VISUAL
+========================================= */
 
 function initHeroPipeline(){
 
 const container = document.querySelector(".hero-pipeline-bg")
+
 if(!container) return
 
 const canvas = document.createElement("canvas")
@@ -12,38 +13,91 @@ container.appendChild(canvas)
 
 const ctx = canvas.getContext("2d")
 
+function resizeCanvas(){
+
 canvas.width = container.offsetWidth
 canvas.height = container.offsetHeight
 
-let particles = []
+}
 
-for(let i=0;i<25;i++){
-particles.push({
+resizeCanvas()
+window.addEventListener("resize", resizeCanvas)
+
+
+
+/* =========================================
+PIPELINE NODES
+========================================= */
+
+let nodes = []
+
+for(let i=0;i<40;i++){
+
+nodes.push({
+
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-speed:Math.random()*1+0.5
+vx:(Math.random()-0.5)*0.6,
+vy:(Math.random()-0.5)*0.6,
+size:Math.random()*2+1
+
 })
+
 }
+
+
+
+/* =========================================
+ANIMATION LOOP
+========================================= */
 
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-particles.forEach(p=>{
 
-ctx.strokeStyle="rgba(34,211,238,0.4)"
+
+nodes.forEach(n=>{
+
+n.x += n.vx
+n.y += n.vy
+
+if(n.x<0 || n.x>canvas.width) n.vx*=-1
+if(n.y<0 || n.y>canvas.height) n.vy*=-1
+
+
+
+/* NODE */
+
+ctx.fillStyle="rgba(34,211,238,0.9)"
 
 ctx.beginPath()
-ctx.moveTo(p.x,p.y)
-ctx.lineTo(p.x+30,p.y)
+ctx.arc(n.x,n.y,n.size,0,Math.PI*2)
+ctx.fill()
+
+
+
+/* CONNECTIONS */
+
+nodes.forEach(o=>{
+
+let dx = n.x-o.x
+let dy = n.y-o.y
+
+let dist = Math.sqrt(dx*dx + dy*dy)
+
+if(dist < 120){
+
+ctx.strokeStyle="rgba(34,211,238,0.15)"
+
+ctx.beginPath()
+ctx.moveTo(n.x,n.y)
+ctx.lineTo(o.x,o.y)
 ctx.stroke()
 
-p.x += p.speed
-
-if(p.x > canvas.width){
-p.x = 0
-p.y = Math.random()*canvas.height
 }
+
+})
 
 })
 
@@ -54,6 +108,12 @@ requestAnimationFrame(animate)
 animate()
 
 }
+
+
+
+/* =========================================
+INITIALIZE
+========================================= */
 
 document.addEventListener("DOMContentLoaded",()=>{
 

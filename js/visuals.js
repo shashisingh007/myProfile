@@ -1,86 +1,131 @@
-/* =========================
+/* =========================================
 INITIALIZE VISUAL EFFECTS
-========================= */
+========================================= */
 
 function initVisualEffects(){
 
-createNetworkBackground()
-createPipelineFlow()
+createDevOpsNetwork()
+createPipelineAnimation()
 
 }
 
 
 
-/* =========================
-DEVOPS NETWORK NODES
-========================= */
+/* =========================================
+DEVOPS NETWORK BACKGROUND
+========================================= */
 
-function createNetworkBackground(){
+function createDevOpsNetwork(){
 
 const canvas = document.createElement("canvas")
 
-canvas.style.position="fixed"
-canvas.style.top="0"
-canvas.style.left="0"
-canvas.style.width="100%"
-canvas.style.height="100%"
-canvas.style.pointerEvents="none"
-canvas.style.zIndex="-1"
+canvas.id = "devops-network"
+
+canvas.style.position = "fixed"
+canvas.style.top = "0"
+canvas.style.left = "0"
+canvas.style.width = "100%"
+canvas.style.height = "100%"
+canvas.style.pointerEvents = "none"
+canvas.style.zIndex = "-2"
 
 document.body.appendChild(canvas)
 
 const ctx = canvas.getContext("2d")
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+function resizeCanvas(){
 
-let nodes=[]
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
-for(let i=0;i<35;i++){
+}
+
+resizeCanvas()
+
+window.addEventListener("resize", resizeCanvas)
+
+
+
+/* NETWORK NODES */
+
+const nodes = []
+
+const NODE_COUNT = 70
+
+for(let i=0;i<NODE_COUNT;i++){
 
 nodes.push({
 
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.2,
-vy:(Math.random()-0.5)*0.2
+
+vx:(Math.random()-0.5)*0.4,
+vy:(Math.random()-0.5)*0.4,
+
+size:Math.random()*2+1
 
 })
 
 }
 
+
+
+/* ANIMATION */
+
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-nodes.forEach(n=>{
+nodes.forEach(node=>{
 
-n.x+=n.vx
-n.y+=n.vy
+node.x += node.vx
+node.y += node.vy
 
-if(n.x<0||n.x>canvas.width) n.vx*=-1
-if(n.y<0||n.y>canvas.height) n.vy*=-1
+if(node.x<0 || node.x>canvas.width) node.vx *= -1
+if(node.y<0 || node.y>canvas.height) node.vy *= -1
 
-ctx.fillStyle="rgba(34,211,238,0.35)"
+
+
+/* NODE GLOW */
+
+const gradient = ctx.createRadialGradient(
+
+node.x,
+node.y,
+0,
+node.x,
+node.y,
+8
+
+)
+
+gradient.addColorStop(0,"rgba(56,189,248,0.9)")
+gradient.addColorStop(1,"rgba(56,189,248,0)")
+
+ctx.fillStyle = gradient
 
 ctx.beginPath()
-ctx.arc(n.x,n.y,2,0,Math.PI*2)
+ctx.arc(node.x,node.y,node.size,0,Math.PI*2)
 ctx.fill()
 
-nodes.forEach(o=>{
 
-let dx=n.x-o.x
-let dy=n.y-o.y
 
-let dist=Math.sqrt(dx*dx+dy*dy)
+/* CONNECTION LINES */
 
-if(dist<120){
+nodes.forEach(other=>{
 
-ctx.strokeStyle="rgba(34,211,238,0.07)"
+const dx = node.x-other.x
+const dy = node.y-other.y
+
+const distance = Math.sqrt(dx*dx + dy*dy)
+
+if(distance < 130){
+
+ctx.strokeStyle = "rgba(56,189,248,0.12)"
 
 ctx.beginPath()
-ctx.moveTo(n.x,n.y)
-ctx.lineTo(o.x,o.y)
+ctx.moveTo(node.x,node.y)
+ctx.lineTo(other.x,other.y)
 ctx.stroke()
 
 }
@@ -99,60 +144,104 @@ animate()
 
 
 
-/* =========================
-DEVOPS PIPELINE FLOW
-========================= */
+/* =========================================
+CI/CD PIPELINE FLOW
+========================================= */
 
-function createPipelineFlow(){
+function createPipelineAnimation(){
 
-const canvas=document.createElement("canvas")
+const canvas = document.createElement("canvas")
 
-canvas.style.position="fixed"
-canvas.style.top="0"
-canvas.style.left="0"
-canvas.style.width="100%"
-canvas.style.height="100%"
-canvas.style.pointerEvents="none"
-canvas.style.zIndex="-2"
+canvas.id = "pipeline-flow"
+
+canvas.style.position = "fixed"
+canvas.style.top = "0"
+canvas.style.left = "0"
+canvas.style.width = "100%"
+canvas.style.height = "100%"
+canvas.style.pointerEvents = "none"
+canvas.style.zIndex = "-3"
 
 document.body.appendChild(canvas)
 
-const ctx=canvas.getContext("2d")
+const ctx = canvas.getContext("2d")
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+function resizeCanvas(){
 
-let flows=[]
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
-for(let i=0;i<20;i++){
+}
+
+resizeCanvas()
+
+window.addEventListener("resize", resizeCanvas)
+
+
+
+/* FLOW PARTICLES */
+
+const flows = []
+
+const FLOW_COUNT = 30
+
+for(let i=0;i<FLOW_COUNT;i++){
 
 flows.push({
 
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
+
+length:Math.random()*50+30,
+
 speed:Math.random()*1.5+0.5
 
 })
 
 }
 
+
+
+/* ANIMATION */
+
 function animateFlow(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-flows.forEach(f=>{
+flows.forEach(flow=>{
 
-ctx.strokeStyle="rgba(34,211,238,0.08)"
+const gradient = ctx.createLinearGradient(
+
+flow.x,
+flow.y,
+flow.x + flow.length,
+flow.y
+
+)
+
+gradient.addColorStop(0,"rgba(56,189,248,0)")
+gradient.addColorStop(0.5,"rgba(56,189,248,0.15)")
+gradient.addColorStop(1,"rgba(56,189,248,0)")
+
+ctx.strokeStyle = gradient
+
+ctx.lineWidth = 2
 
 ctx.beginPath()
-ctx.moveTo(f.x,f.y)
-ctx.lineTo(f.x+40,f.y)
+
+ctx.moveTo(flow.x, flow.y)
+ctx.lineTo(flow.x + flow.length, flow.y)
 
 ctx.stroke()
 
-f.x+=f.speed
+flow.x += flow.speed
 
-if(f.x>canvas.width) f.x=0
+if(flow.x > canvas.width){
+
+flow.x = -flow.length
+flow.y = Math.random()*canvas.height
+
+}
 
 })
 
@@ -166,9 +255,9 @@ animateFlow()
 
 
 
-/* =========================
-START VISUALS
-========================= */
+/* =========================================
+START VISUAL EFFECTS
+========================================= */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -176,6 +265,6 @@ setTimeout(()=>{
 
 initVisualEffects()
 
-},400)
+},300)
 
 })

@@ -1,29 +1,42 @@
-/* =========================
+/* =========================================
 DEVOPS TOOLS
-========================= */
+========================================= */
 
 function renderTools(){
 
 const tools = [
 
 {name:"AWS",icon:"assets/tools/aws.png",class:"tool-aws"},
+{name:"Azure",icon:"assets/tools/azure.png",class:"tool-cloud"},
+{name:"GCP",icon:"assets/tools/gcp.png",class:"tool-cloud"},
+
 {name:"Docker",icon:"assets/tools/docker.png",class:"tool-docker"},
 {name:"Kubernetes",icon:"assets/tools/kubernetes.png",class:"tool-kubernetes"},
+{name:"Helm",icon:"assets/tools/helm.png",class:"tool-kubernetes"},
+
 {name:"Terraform",icon:"assets/tools/terraform.png",class:"tool-terraform"},
+{name:"Ansible",icon:"assets/tools/ansible.png",class:"tool-ansible"},
+
 {name:"Jenkins",icon:"assets/tools/jenkins.png",class:"tool-jenkins"},
 {name:"GitHub Actions",icon:"assets/tools/github-actions.png",class:"tool-github"},
-{name:"Ansible",icon:"assets/tools/ansible.png",class:"tool-ansible"},
+{name:"GitLab CI",icon:"assets/tools/gitlab.png",class:"tool-github"},
+
 {name:"Prometheus",icon:"assets/tools/prometheus.png",class:"tool-monitor"},
 {name:"Grafana",icon:"assets/tools/grafana.png",class:"tool-monitor"},
-{name:"Helm",icon:"assets/tools/helm.png",class:"tool-kubernetes"},
-{name:"Redis",icon:"assets/tools/redis.png",class:"tool-monitor"},
-{name:"MySQL",icon:"assets/tools/mysql.png",class:"tool-monitor"},
-{name:"Python",icon:"assets/tools/python.png",class:"tool-monitor"},
-{name:"Bash",icon:"assets/tools/bash.png",class:"tool-monitor"}
+{name:"ELK Stack",icon:"assets/tools/elk.png",class:"tool-monitor"},
+
+{name:"Redis",icon:"assets/tools/redis.png",class:"tool-db"},
+{name:"MySQL",icon:"assets/tools/mysql.png",class:"tool-db"},
+{name:"PostgreSQL",icon:"assets/tools/postgres.png",class:"tool-db"},
+
+{name:"Python",icon:"assets/tools/python.png",class:"tool-code"},
+{name:"Bash",icon:"assets/tools/bash.png",class:"tool-code"}
 
 ]
 
 const container = document.getElementById("toolsContainer")
+
+if(!container) return
 
 container.innerHTML=""
 
@@ -46,9 +59,9 @@ container.appendChild(card)
 
 
 
-/* =========================
+/* =========================================
 LOAD DATA.JSON
-========================= */
+========================================= */
 
 async function loadPortfolioData(){
 
@@ -60,10 +73,14 @@ const data = await response.json()
 renderHero(data)
 renderMetrics(data.metrics)
 renderAbout(data.summary)
+
 renderSkills(data.skills)
 renderCompanies(data.companies)
 renderExperience(data.experience)
 renderProjects(data.projects)
+
+renderCertifications(data.certifications)
+
 renderTools()
 
 attachContactLinks(data.personal)
@@ -78,9 +95,9 @@ console.error("Error loading data:", error)
 
 
 
-/* =========================
-HERO SECTION
-========================= */
+/* =========================================
+HERO
+========================================= */
 
 function renderHero(data){
 
@@ -93,13 +110,15 @@ document.getElementById("heroTagline").innerText = data.personal.tagline
 
 
 
-/* =========================
-METRICS BUTTONS
-========================= */
+/* =========================================
+METRICS
+========================================= */
 
 function renderMetrics(metrics){
 
 const container = document.getElementById("metricsContainer")
+
+if(!container) return
 
 container.innerHTML = ""
 
@@ -123,27 +142,29 @@ container.appendChild(card)
 
 
 
-/* =========================
-ABOUT SECTION
-========================= */
+/* =========================================
+ABOUT
+========================================= */
 
 function renderAbout(summary){
 
 const about = document.getElementById("aboutText")
 
-about.innerText = summary
+if(about) about.innerText = summary
 
 }
 
 
 
-/* =========================
-SKILLS SECTION
-========================= */
+/* =========================================
+SKILLS
+========================================= */
 
 function renderSkills(skills){
 
 const container = document.getElementById("skillsContainer")
+
+if(!container) return
 
 container.innerHTML = ""
 
@@ -173,13 +194,15 @@ container.appendChild(card)
 
 
 
-/* =========================
-COMPANIES SECTION
-========================= */
+/* =========================================
+COMPANIES
+========================================= */
 
 function renderCompanies(companies){
 
 const container = document.getElementById("companiesContainer")
+
+if(!container) return
 
 container.innerHTML = ""
 
@@ -202,13 +225,15 @@ container.appendChild(card)
 
 
 
-/* =========================
-EXPERIENCE SECTION
-========================= */
+/* =========================================
+EXPERIENCE
+========================================= */
 
 function renderExperience(exp){
 
 const container = document.getElementById("experienceContainer")
+
+if(!container) return
 
 container.innerHTML = ""
 
@@ -240,13 +265,15 @@ container.appendChild(card)
 
 
 
-/* =========================
-PROJECTS SECTION
-========================= */
+/* =========================================
+PROJECTS
+========================================= */
 
 function renderProjects(projects){
 
 const container = document.getElementById("projectsContainer")
+
+if(!container) return
 
 container.innerHTML = ""
 
@@ -259,6 +286,7 @@ let tech = project.technologies.join(", ")
 
 card.innerHTML = `
 <h3>${project.name}</h3>
+<p><b>Category:</b> ${project.category}</p>
 <p>${project.description}</p>
 <p><b>Impact:</b> ${project.impact}</p>
 <p><b>Tech:</b> ${tech}</p>
@@ -272,9 +300,37 @@ container.appendChild(card)
 
 
 
-/* =========================
+/* =========================================
+CERTIFICATIONS
+========================================= */
+
+function renderCertifications(certifications){
+
+const container = document.getElementById("certificationsContainer")
+
+if(!container) return
+
+container.innerHTML=""
+
+certifications.forEach(cert => {
+
+const card = document.createElement("div")
+
+card.className="skill-card text-center"
+
+card.innerHTML=`<h3>${cert}</h3>`
+
+container.appendChild(card)
+
+})
+
+}
+
+
+
+/* =========================================
 CONTACT LINKS
-========================= */
+========================================= */
 
 function attachContactLinks(personal){
 
