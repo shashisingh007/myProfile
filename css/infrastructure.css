@@ -1,0 +1,106 @@
+/* =========================
+INFRASTRUCTURE SECTION
+========================= */
+
+.infrastructure-map{
+
+margin-top:60px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:40px;
+
+}
+
+
+
+/* =========================
+NODE CARD
+========================= */
+
+.infra-node{
+
+padding:18px 30px;
+
+border-radius:10px;
+
+background:linear-gradient(145deg,#0f172a,#1e293b);
+
+border:1px solid rgba(255,255,255,0.05);
+
+color:white;
+
+font-size:14px;
+
+text-align:center;
+
+min-width:200px;
+
+transition:0.3s;
+
+}
+
+.infra-node:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 0 20px rgba(34,211,238,0.35);
+
+}
+
+
+
+/* =========================
+CONNECTION LINE
+========================= */
+
+.infra-line{
+
+width:4px;
+
+height:40px;
+
+background:linear-gradient(
+
+180deg,
+rgba(34,211,238,0.2),
+rgba(34,211,238,0.7),
+rgba(34,211,238,0.2)
+
+);
+
+animation:pipelineFlow 2s linear infinite;
+
+}
+
+
+
+/* =========================
+FLOW ANIMATION
+========================= */
+
+@keyframes pipelineFlow{
+
+0%{
+
+opacity:0.2;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:0.2;
+
+}
+
+}

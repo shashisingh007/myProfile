@@ -1,0 +1,151 @@
+/* =========================
+METRIC BUTTON HOVER EFFECT
+========================= */
+
+.metric-card{
+
+position:relative;
+
+overflow:hidden;
+
+cursor:pointer;
+
+transition:transform 0.25s ease,
+box-shadow 0.25s ease;
+
+}
+
+.metric-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 0 20px rgba(34,211,238,0.35);
+
+}
+
+
+
+/* =========================
+BORDER EXPANSION EFFECT
+========================= */
+
+.metric-card::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+border:2px solid #22d3ee;
+
+border-radius:10px;
+
+opacity:0;
+
+transform:scale(0.8);
+
+transition:0.35s ease;
+
+}
+
+.metric-card:hover::before{
+
+opacity:1;
+
+transform:scale(1.08);
+
+}
+
+
+
+/* =========================
+BUTTON GLOW
+========================= */
+
+.resume-btn:hover{
+
+box-shadow:0 0 15px #22d3ee;
+
+}
+
+
+
+/* =========================
+CARD HOVER EFFECT
+========================= */
+
+.tool-card,
+.skill-card,
+.company-card,
+.experience-card,
+.project-card{
+
+transition:transform 0.25s ease,
+box-shadow 0.25s ease;
+
+}
+
+.tool-card:hover,
+.skill-card:hover,
+.company-card:hover,
+.experience-card:hover,
+.project-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 0 20px rgba(34,211,238,0.25);
+
+}
+
+
+
+/* =========================
+FADE-IN SECTION
+========================= */
+
+.section{
+
+opacity:0;
+
+transform:translateY(40px);
+
+animation:fadeUp 0.8s ease forwards;
+
+}
+
+@keyframes fadeUp{
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+/* =========================
+ICON HOVER
+========================= */
+
+.icon-btn img{
+
+transition:0.25s ease;
+
+}
+
+.icon-btn img:hover{
+
+transform:scale(1.15);
+
+filter:drop-shadow(0 0 8px #22d3ee);
+
+}

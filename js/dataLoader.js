@@ -1,52 +1,78 @@
 /* =========================
-LOAD HEADER + FOOTER
+DEVOPS TOOLS
 ========================= */
 
-async function loadComponents(){
+function renderTools(){
 
-const header = await fetch("components/header.html")
-.then(res => res.text())
+const tools = [
 
-document.getElementById("header").innerHTML = header
+{name:"AWS",icon:"assets/tools/aws.png",class:"tool-aws"},
+{name:"Docker",icon:"assets/tools/docker.png",class:"tool-docker"},
+{name:"Kubernetes",icon:"assets/tools/kubernetes.png",class:"tool-kubernetes"},
+{name:"Terraform",icon:"assets/tools/terraform.png",class:"tool-terraform"},
+{name:"Jenkins",icon:"assets/tools/jenkins.png",class:"tool-jenkins"},
+{name:"GitHub Actions",icon:"assets/tools/github-actions.png",class:"tool-github"},
+{name:"Ansible",icon:"assets/tools/ansible.png",class:"tool-ansible"},
+{name:"Prometheus",icon:"assets/tools/prometheus.png",class:"tool-monitor"},
+{name:"Grafana",icon:"assets/tools/grafana.png",class:"tool-monitor"}
 
+]
 
-const footer = await fetch("components/footer.html")
-.then(res => res.text())
+const container = document.getElementById("toolsContainer")
 
-document.getElementById("footer").innerHTML = footer
+container.innerHTML=""
+
+tools.forEach(tool=>{
+
+const card = document.createElement("div")
+
+card.className = `tool-card ${tool.class}`
+
+card.innerHTML = `
+<img src="${tool.icon}">
+<p>${tool.name}</p>
+`
+
+container.appendChild(card)
+
+})
 
 }
-
-loadComponents()
-
-
 
 /* =========================
 LOAD DATA.JSON
 ========================= */
 
-async function loadData(){
+async function loadPortfolioData(){
+
+try{
 
 const response = await fetch("data.json")
 const data = await response.json()
 
 renderHero(data)
 renderMetrics(data.metrics)
+renderAbout(data.summary)
 renderSkills(data.skills)
 renderCompanies(data.companies)
 renderExperience(data.experience)
 renderProjects(data.projects)
+renderTools()
 
-setContactLinks(data.personal)
+attachContactLinks(data.personal)
+
+}catch(error){
+
+console.error("Error loading data:", error)
 
 }
 
-loadData()
+}
 
 
 
 /* =========================
-HERO
+HERO SECTION
 ========================= */
 
 function renderHero(data){
@@ -61,24 +87,26 @@ document.getElementById("heroTagline").innerText = data.personal.tagline
 
 
 /* =========================
-METRICS
+METRICS BUTTONS
 ========================= */
 
 function renderMetrics(metrics){
 
 const container = document.getElementById("metricsContainer")
 
-metrics.forEach(m => {
+container.innerHTML = ""
 
-const div = document.createElement("div")
-div.className = "metric"
+metrics.forEach(metric => {
 
-div.innerHTML = `
-<div class="metric-value">${m.value}</div>
-<div class="metric-label">${m.label}</div>
+const card = document.createElement("div")
+card.className = "metric-card"
+
+card.innerHTML = `
+<div class="metric-number">${metric.value}</div>
+<div class="metric-label">${metric.label}</div>
 `
 
-container.appendChild(div)
+container.appendChild(card)
 
 })
 
@@ -87,12 +115,28 @@ container.appendChild(div)
 
 
 /* =========================
-SKILLS
+ABOUT SECTION
+========================= */
+
+function renderAbout(summary){
+
+const about = document.getElementById("aboutText")
+
+about.innerText = summary
+
+}
+
+
+
+/* =========================
+SKILLS SECTION
 ========================= */
 
 function renderSkills(skills){
 
 const container = document.getElementById("skillsContainer")
+
+container.innerHTML = ""
 
 Object.keys(skills).forEach(category => {
 
@@ -102,7 +146,9 @@ card.className = "skill-card"
 let items = ""
 
 skills[category].forEach(skill => {
+
 items += `<li>${skill.name}</li>`
+
 })
 
 card.innerHTML = `
@@ -119,25 +165,27 @@ container.appendChild(card)
 
 
 /* =========================
-COMPANIES
+COMPANIES SECTION
 ========================= */
 
 function renderCompanies(companies){
 
 const container = document.getElementById("companiesContainer")
 
-companies.forEach(c => {
+container.innerHTML = ""
 
-const div = document.createElement("div")
-div.className = "company-card"
+companies.forEach(company => {
 
-div.innerHTML = `
-<img src="${c.logo}">
-<h3>${c.name}</h3>
-<p>${c.industry}</p>
+const card = document.createElement("div")
+card.className = "company-card"
+
+card.innerHTML = `
+<img src="${company.logo}">
+<h3>${company.name}</h3>
+<p>${company.industry}</p>
 `
 
-container.appendChild(div)
+container.appendChild(card)
 
 })
 
@@ -146,32 +194,36 @@ container.appendChild(div)
 
 
 /* =========================
-EXPERIENCE
+EXPERIENCE SECTION
 ========================= */
 
 function renderExperience(exp){
 
 const container = document.getElementById("experienceContainer")
 
-exp.forEach(e => {
+container.innerHTML = ""
 
-const div = document.createElement("div")
-div.className = "experience-card"
+exp.forEach(item => {
 
-let resp = ""
+const card = document.createElement("div")
+card.className = "experience-card"
 
-e.responsibilities.forEach(r => {
-resp += `<li>${r}</li>`
+let responsibilities = ""
+
+item.responsibilities.forEach(r => {
+
+responsibilities += `<li>${r}</li>`
+
 })
 
-div.innerHTML = `
-<h3>${e.role}</h3>
-<h4>${e.company}</h4>
-<p>${e.duration} • ${e.location}</p>
-<ul>${resp}</ul>
+card.innerHTML = `
+<h3>${item.role}</h3>
+<h4>${item.company}</h4>
+<p>${item.duration} • ${item.location}</p>
+<ul>${responsibilities}</ul>
 `
 
-container.appendChild(div)
+container.appendChild(card)
 
 })
 
@@ -180,28 +232,30 @@ container.appendChild(div)
 
 
 /* =========================
-PROJECTS
+PROJECTS SECTION
 ========================= */
 
 function renderProjects(projects){
 
 const container = document.getElementById("projectsContainer")
 
-projects.forEach(p => {
+container.innerHTML = ""
 
-const div = document.createElement("div")
-div.className = "project-card"
+projects.forEach(project => {
 
-let tech = p.technologies.join(", ")
+const card = document.createElement("div")
+card.className = "project-card"
 
-div.innerHTML = `
-<h3>${p.name}</h3>
-<p>${p.description}</p>
-<p><b>Impact:</b> ${p.impact}</p>
+let tech = project.technologies.join(", ")
+
+card.innerHTML = `
+<h3>${project.name}</h3>
+<p>${project.description}</p>
+<p><b>Impact:</b> ${project.impact}</p>
 <p><b>Tech:</b> ${tech}</p>
 `
 
-container.appendChild(div)
+container.appendChild(card)
 
 })
 
@@ -213,7 +267,7 @@ container.appendChild(div)
 CONTACT LINKS
 ========================= */
 
-function setContactLinks(personal){
+function attachContactLinks(personal){
 
 setTimeout(() => {
 
@@ -233,6 +287,6 @@ document.getElementById("footerResume").href = personal.resume
 
 document.getElementById("footerLocationText").innerText = personal.location
 
-},400)
+},500)
 
 }
