@@ -17,7 +17,7 @@ font-family:'Poppins',sans-serif;
 
 color:white;
 
-background:#020617;
+background:transparent;
 
 scroll-behavior:smooth;
 
@@ -31,7 +31,7 @@ overflow-x:hidden;
 DEVOPS BACKGROUND SYSTEM
 ===================================================== */
 
-/* PARTICLES LAYER */
+/* PARTICLES */
 
 #particles-js{
 
@@ -52,7 +52,7 @@ background:#020617;
 }
 
 
-/* NETWORK NODES */
+/* NETWORK MESH */
 
 #devops-network{
 
@@ -116,7 +116,7 @@ filter:brightness(0.35);
 
 
 /* =====================================================
-OVERLAY (LIGHT CLOUD SHADE)
+LIGHT OVERLAY (FIXED)
 ===================================================== */
 
 .background-overlay{
@@ -131,8 +131,8 @@ height:100vh;
 
 background:linear-gradient(
 180deg,
-rgba(2,6,23,0.65),
-rgba(2,6,23,0.90)
+rgba(2,6,23,0.20),
+rgba(2,6,23,0.45)
 );
 
 z-index:-2;
@@ -282,7 +282,7 @@ box-shadow:0 0 15px rgba(34,211,238,0.4);
 
 
 /* =====================================================
-CONTENT LAYER ABOVE BACKGROUND
+CONTENT ABOVE BACKGROUND
 ===================================================== */
 
 .hero-section,
