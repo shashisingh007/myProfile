@@ -486,3 +486,43 @@ background-image:url("https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif");
 background-image:url("https://media.giphy.com/media/l41YtZOb9EUABnuqA/giphy.gif");
 
 }
+
+/* HERO TEXT ANIMATION */
+
+#heroName{
+
+opacity:0;
+transform:translateX(-120px);
+
+animation:slideHero 1.2s ease forwards;
+
+}
+
+#heroTitle{
+
+opacity:0;
+transform:translateX(-80px);
+
+animation:slideHero 1.5s ease forwards;
+
+}
+
+#heroTagline{
+
+opacity:0;
+transform:translateX(-60px);
+
+animation:slideHero 1.8s ease forwards;
+
+}
+
+@keyframes slideHero{
+
+to{
+
+opacity:1;
+transform:translateX(0);
+
+}
+
+}

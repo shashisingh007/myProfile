@@ -44,6 +44,8 @@ container.appendChild(card)
 
 }
 
+
+
 /* =========================
 LOAD DATA.JSON
 ========================= */
@@ -103,11 +105,13 @@ container.innerHTML = ""
 
 metrics.forEach(metric => {
 
+const value = parseInt(metric.value)
+
 const card = document.createElement("div")
 card.className = "metric-card"
 
 card.innerHTML = `
-<div class="metric-number">${metric.value}</div>
+<div class="metric-number" data-target="${value}">0</div>
 <div class="metric-label">${metric.label}</div>
 `
 

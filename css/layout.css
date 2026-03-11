@@ -4,10 +4,25 @@ HERO SECTION
 
 .hero-section{
 
-padding-top:160px;
+position:relative;
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+
+padding-top:140px;
 padding-bottom:120px;
 
+overflow:hidden;
+
 }
+
+
+
+/* =========================
+PROFILE IMAGE
+========================= */
 
 .profile-image{
 
@@ -20,9 +35,15 @@ border:5px solid #22d3ee;
 
 object-fit:cover;
 
-box-shadow:0 0 40px rgba(34,211,238,0.4);
+box-shadow:0 0 45px rgba(34,211,238,0.45);
 
 }
+
+
+
+/* =========================
+HERO TEXT
+========================= */
 
 #heroName{
 
@@ -54,13 +75,14 @@ margin-bottom:35px;
 
 
 /* =========================
-METRICS BUTTONS
+METRICS
 ========================= */
 
 .metrics-container{
 
-display:flex;
-flex-wrap:wrap;
+display:grid;
+
+grid-template-columns:repeat(2,180px);
 
 gap:25px;
 
@@ -296,81 +318,53 @@ margin-bottom:25px;
 
 }
 
+
+
 /* =========================
-HERO PIPELINE BACKGROUND
+HERO IMAGE GLOW
 ========================= */
 
-.hero-section{
-position:relative;
-overflow:hidden;
-}
-
-.hero-pipeline-bg{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:0;
-opacity:0.15;
-}
-
 .hero-image-wrapper{
+
 position:relative;
 display:inline-block;
+
 }
 
 .hero-image-wrapper::after{
+
 content:"";
+
 position:absolute;
-top:-10px;
-left:-10px;
-right:-10px;
-bottom:-10px;
+
+top:-12px;
+left:-12px;
+right:-12px;
+bottom:-12px;
+
 border-radius:50%;
-border:2px solid rgba(34,211,238,0.4);
+
+border:2px solid rgba(34,211,238,0.45);
+
 animation:heroPulse 3s infinite;
+
 }
 
 @keyframes heroPulse{
+
 0%{transform:scale(1);opacity:0.6;}
+
 50%{transform:scale(1.05);opacity:1;}
+
 100%{transform:scale(1);opacity:0.6;}
-}
-
-#bg-video{
-
-position:fixed;
-top:0;
-left:0;
-
-min-width:100%;
-min-height:100%;
-
-object-fit:cover;
-
-z-index:-2;
-
-filter:brightness(0.9) contrast(1.2);
 
 }
 
-.background-overlay{
 
-position:fixed;
 
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,20,40,0.45);
-
-z-index:-1;
-
-}
+/* =========================
+PARTICLE BACKGROUND
+========================= */
 
 #particles-js{
 
@@ -387,6 +381,12 @@ background:#020617;
 z-index:-2;
 
 }
+
+
+
+/* =========================
+BODY BACKGROUND
+========================= */
 
 body{
 
